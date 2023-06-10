@@ -13,6 +13,7 @@
     "merchant.js": "0.3.1",
     "next": "^10.0.4",
     "next-images": "^1.6.2",
+    "next-optimized-images": "^2.6.2",
     "react": "^17.0.1",
     "react-bootstrap": "^1.6.4",
     "react-circular-progressbar": "^2.0.4",

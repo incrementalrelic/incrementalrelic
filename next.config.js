@@ -1,4 +1,4 @@
-const withImages = require('next-images');
+const withImages = require('next-optimized-images');
 
 const nextConfig = {
   webpack: config => {
