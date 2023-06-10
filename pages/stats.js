@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef, useMemo } from 'react';
 import { colorByReward, anotherColorByReward, colorByRarity, randomIntFromInterval } from "./items";
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import { elements, fire, water, earth, air, gold, experience } from "./currencies";
+import { elements, fire, water, earth, air, gold, experience } from "../functions/currencies";
 import Button from 'react-bootstrap/Button';
 import ReactTooltip from 'react-tooltip';
 import ToggleButton from 'react-bootstrap/ToggleButton';

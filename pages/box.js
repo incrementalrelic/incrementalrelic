@@ -2,11 +2,11 @@ import React, {useState, useEffect} from 'react';
 import Image from 'next/image'
 import { gen_rarity_odds, generate_artifact, colorByReward, rarityName, colorByRarity, ArtifactType, generate_relic, RelicType } from "./items";
 import { statsList, statById } from "./stats"
-import { currencies, elements, currencyById, soul } from "./currencies";
+import { currencies, elements, currencyById, soul } from "../functions/currencies";
 import ReactTooltip from 'react-tooltip';
 import ConfirmModal from "./components/modal"
 import Button from 'react-bootstrap/Button';
-import { missions, colorByMission } from "./missions";
+import { missions, colorByMission } from "../functions/missions";
 import { Map } from "immutable";
  
 export const wooden = {id: "woodB", name: "Wooden box", type: "artifact", rarity:1, src:"/wooden.png", odds:{1:70,2:25,3:4,4:1}};

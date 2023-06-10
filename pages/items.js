@@ -1,7 +1,7 @@
-import { experience, gold, fire, water, earth, air, elements, allCurrencies } from "./currencies";
+import { experience, gold, fire, water, earth, air, elements, allCurrencies } from "../functions/currencies";
 import { regen, statsList } from "./stats"
 import { Map } from "immutable";
-import { missionsByLevel } from "./missions";
+import { missionsByLevel } from "../functions/missions";
 import { v4 as uuidv4} from 'uuid';
 import { itemName } from "./nameGen";
 

@@ -338,5 +338,3 @@ const missionsByLevel = (level) => missions.filter((mission) => level >= mission
 module.exports = {
     missions, missionsByLevel, colorByMission
 }
-
-export default missions;

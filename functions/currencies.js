@@ -44,5 +44,3 @@ module.exports = {
   startCurrencies,
   currencyById
 }
-
-export default currencyById;
