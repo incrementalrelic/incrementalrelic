@@ -3,8 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { experience, gold, fire, water, earth, air, soul } from "../../functions/currencies";
 import { gen_rarity_odds, generate_artifact, colorByReward, rarityName, colorByRarity, generate_relic } from "../items";
 import { MemoItemTd as Item } from '../shop'
-import { CircularProgressbarWithChildren, buildStyles} from 'react-circular-progressbar';
-import Image from 'next/image'
+import { CircularProgressbarWithChildren, buildStyles} from 'react-circular-progressbar'; 
 
 export function Story(props){
     const keys = Object.keys(messages).filter(x=> x <= props.level)
@@ -37,7 +36,7 @@ export function MessageWrapper(props) {
         </div> 
         <div style={{ flex: 1, position: "relative" }}>
             <div style={{width: '100%', height: '100%', position: 'relative'}}>
-                    <Image src={"/chars/"+char[mkey]+".png"} layout="fill" objectFit="contain" objectPosition="top"/>
+                    <img src={require("../../public/chars/"+char[mkey]+".png")} layout="fill" objectFit="contain" objectPosition="top" />
                 </div>
         </div>
       </div>

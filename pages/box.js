@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import Image from 'next/image'
 import { gen_rarity_odds, generate_artifact, colorByReward, rarityName, colorByRarity, ArtifactType, generate_relic, RelicType } from "./items";
 import { statsList, statById } from "./stats"
 import { currencies, elements, currencyById, soul } from "../functions/currencies";
@@ -43,8 +42,8 @@ export const Box = (props) => {
         <td onClick={()=>props.openModal(box)}>
             <BoxBackground box={box}>
                 <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${box.src})`, textAlign:'center'}}>
-                    <Image
-                        src={"/"+box.rarity+".png"}
+                    <img
+                        src={require("/"+box.rarity+".png")}
                         width={100}
                         height={100}
                     />
@@ -199,8 +198,8 @@ const Item = (props) => {
     <Background item={item}>
       <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${item.src})`}}>
         <div style={{width: 100, height:100}}>
-          <Image
-              src={"/"+item.rarity+".png"}
+          <img
+              src={require("/"+item.rarity+".png")}
               width={100}
               height={100}
               />
