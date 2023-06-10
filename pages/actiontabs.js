@@ -2,7 +2,7 @@ import React, {useMemo, useState} from 'react';
 import ReactiveButton from './components/progressButton';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import { elements, experience } from "./currencies";
+import { elements, experience } from "../functions/currencies";
 
 export default React.memo(function ActionTabs(props) {
     const [state, setState] = useState(-1);

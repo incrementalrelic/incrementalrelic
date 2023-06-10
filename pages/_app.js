@@ -1,8 +1,8 @@
 import React from "react";
 import { Map } from "immutable";
 import { add, buy, inTheBlack, addItem, pouchEffectsLedger, scale } from "merchant.js";
-import { missions } from "./missions"
-import { gold, experience, currencies, elements, soul, allCurrencies, startCurrencies, fire, water, earth, air } from "./currencies";
+import { missions } from "../functions/missions"
+import { gold, experience, currencies, elements, soul, allCurrencies, startCurrencies, fire, water, earth, air } from "../functions/currencies";
 import { get_level_info } from "./level";
 import ActionTabs from './actiontabs'
 import { CircularProgressbar, CircularProgressbarWithChildren, buildStyles} from 'react-circular-progressbar';

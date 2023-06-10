@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
-import { experience, gold, fire, water, earth, air, soul } from "../currencies";
+import { experience, gold, fire, water, earth, air, soul } from "../../functions/currencies";
 import { gen_rarity_odds, generate_artifact, colorByReward, rarityName, colorByRarity, generate_relic } from "../items";
 import { MemoItemTd as Item } from '../shop'
 import { CircularProgressbarWithChildren, buildStyles} from 'react-circular-progressbar';

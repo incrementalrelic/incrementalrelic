@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Image from 'next/image'
 import { ArtifactType, generate_item, RelicType, colorByReward, rarityName, colorByRarity, generate_artifact } from "./items";
-import { currencies, fire, water, earth, air, soul, experience, elements, currencyById } from "./currencies";
+import { currencies, fire, water, earth, air, soul, experience, elements, currencyById } from "../functions/currencies";
 import { attack, defence, health, regen, statById, statsList } from "./stats"
 import { Map } from "immutable";
 import Modal from 'react-bootstrap/Modal';
@@ -10,7 +10,7 @@ import ReactiveButton from './components/progressButton';
 import ReactTooltip from 'react-tooltip';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import { missions, colorByMission } from "./missions";
+import { missions, colorByMission } from "../functions/missions";
 import { boxes, Box, BoxModal } from './box';
 
 const TypeMessage = ({isRelic, style, rarity}) => (
