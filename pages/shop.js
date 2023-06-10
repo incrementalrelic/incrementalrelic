@@ -383,3 +383,5 @@ function ItemTd (props) {
     </td>
   )
 } 
+
+export default MemoShop;

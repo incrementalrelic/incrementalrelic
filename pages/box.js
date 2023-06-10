@@ -209,3 +209,5 @@ const Item = (props) => {
     </Background>
   )
 } 
+
+export default Box;

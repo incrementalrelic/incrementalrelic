@@ -255,3 +255,5 @@ var AvsAnSimple = function(n) {
         }
     }
 }({})
+
+export default itemName;

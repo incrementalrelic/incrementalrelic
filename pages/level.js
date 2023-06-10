@@ -16,3 +16,5 @@ export function get_level_info(exp){
     var actualExp = exp || 0
     return next_level(intial_lvl, intial_exp, actualExp)
 }
+
+export default get_level_info;

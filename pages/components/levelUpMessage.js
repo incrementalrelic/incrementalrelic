@@ -262,3 +262,5 @@ export function levelFiftyFive(props){
             </div>
         </div>
 }
+
+export default Story;

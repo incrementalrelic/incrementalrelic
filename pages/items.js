@@ -298,3 +298,5 @@ export function generate_relic(level, genBonus, rarity = gen_rarity_relic()){
         statEffect: Map(rewardS)
     }
 }
+
+export default generate_item;

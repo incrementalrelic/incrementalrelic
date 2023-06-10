@@ -828,3 +828,5 @@ function MergeItems(props) {
         </div>
     )
 }
+
+export default MemoUpgrade;

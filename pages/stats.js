@@ -479,3 +479,5 @@ function useInterval(callback, delay) {
       }
     }, [delay]);
   }
+
+export default MemoStats
