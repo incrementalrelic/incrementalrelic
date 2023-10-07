@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useMemo} from 'react';
 import { MemoItemTd as Item } from './shop'
 import { add, buy, inTheBlack, pouchEffectsLedger, scale } from "merchant.js";
-import { currencies, elements, currencyById, soul, fire, water, earth, air, gold, experience } from '../functions/currencies';
+import { currencies, elements, currencyById, soul, fire, water, earth, air, gold, experience } from './currencies';
 import { ArtifactType, colorByRarity, colorByReward, generate_artifact, generate_relic, randomIntFromInterval, RelicType } from "./items";
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
@@ -828,5 +828,3 @@ function MergeItems(props) {
         </div>
     )
 }
-
-export default MemoUpgrade;

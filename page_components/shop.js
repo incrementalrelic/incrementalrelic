@@ -1,13 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import { ArtifactType, generate_item, RelicType, colorByReward, rarityName, colorByRarity, generate_artifact } from "./items";
-import { currencies, fire, water, earth, air, soul, experience, elements, currencyById } from "../functions/currencies";
+import { currencies, fire, water, earth, air, soul, experience, elements, currencyById } from "./currencies";
 import { attack, defence, health, regen, statById, statsList } from "./stats"
+import { Map } from "immutable";
+import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import ReactiveButton from './components/progressButton';
 import ReactTooltip from 'react-tooltip';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import { missions, colorByMission } from "../functions/missions";
+import { missions, colorByMission } from "./missions";
 import { boxes, Box, BoxModal } from './box';
 
 const TypeMessage = ({isRelic, style, rarity}) => (
@@ -321,7 +323,8 @@ function Item (props) {
       <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${item.src})`}}>
         <div style={{width: 100, height:100, backgroundImage: props.isShop && item.bought ? `url(${"/s.png"})` : !props.isShop && props.using ? `url(${"/u.png"})` : `url(${"/n.png"})`}}>
           <img
-              src={require("/"+item.rarity+".png")}
+              alt={item.rarity}
+              src={"/"+item.rarity+".png"}
               width={100}
               height={100}
               onClick={() => onClick(item)}
@@ -380,5 +383,3 @@ function ItemTd (props) {
     </td>
   )
 } 
-
-export default MemoShop;

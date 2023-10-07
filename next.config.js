@@ -1,6 +1,7 @@
-const withOptimizedImages = require('next-optimized-images');
+const withImages = require('next-images');
 
-const nextConfig = {
+const nextConfig = {    
+  output: 'export',
 };
 
-module.exports = withOptimizedImages(nextConfig);
+module.exports = withImages(nextConfig);

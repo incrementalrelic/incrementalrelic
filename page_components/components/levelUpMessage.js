@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
-import { experience, gold, fire, water, earth, air, soul } from "../../functions/currencies";
+import { experience, gold, fire, water, earth, air, soul } from "../currencies";
 import { gen_rarity_odds, generate_artifact, colorByReward, rarityName, colorByRarity, generate_relic } from "../items";
 import { MemoItemTd as Item } from '../shop'
-import { CircularProgressbarWithChildren, buildStyles} from 'react-circular-progressbar'; 
+import { CircularProgressbarWithChildren, buildStyles} from 'react-circular-progressbar';
+
+//const item = {...generate_relic(10, 0, gen_rarity_odds({1:0,2:0,3:0,4:100})), cost: ()=>Map(), name: "The shopkeeper's heirloom"}
 
 export function Story(props){
     const keys = Object.keys(messages).filter(x=> x <= props.level)
@@ -36,14 +38,15 @@ export function MessageWrapper(props) {
         </div> 
         <div style={{ flex: 1, position: "relative" }}>
             <div style={{width: '100%', height: '100%', position: 'relative'}}>
-                    <img src={require("../../public/chars/"+char[mkey]+".png")} layout="fill" objectFit="contain" objectPosition="top" />
-                </div>
+                <img src={"/chars/"+char[mkey]+".png"} alt={char[mkey]} layout="fill" objectFit="contain" objectPosition="top"/>
+            </div>
         </div>
       </div>
     );
 }
 
-export const messages = {"1":levelOne(), "3": levelThree(), "8": levelEight(), "10": levelTen(), "15":levelFifteen(), "18":levelEighteen(), 
+export const messages = {"1":levelOne(), "3": levelThree(), "8": levelEight(),// "10": levelTen(), 
+                        "15":levelFifteen(), //"18":levelEighteen(), 
                         "20": levelTwenty(), "25": levelTwentyFive(), "30": levelThirty(), "35":levelThirtyFive(), "40":levelForty(),
                         "45": levelFortyFive(), "50": levelFifty(), "55": levelFiftyFive()}
 
@@ -108,7 +111,7 @@ export function levelEighteen(props){
     return <div><div style={{color:"#00a4a6"}}><p>Psssht</p><p>Hello again, I have got a new item supplier and he just sent me some relics.</p>
         <p>Unlike artifacts, relics don't give buffs when equiped and instead you need to perform a <a style={{color:"black"}}>dark ritual</a> known as reincarnation to get their power.</p>
         <p> I also have a relic in the display, but since I am not level <b>20</b> I can't do anything with it:</p>
-        <Item item={{...generate_relic(10, 0, gen_rarity_odds({1:0,2:0,3:0,4:100})), cost: ()=>Map(), name: "The shopkeeper's heirloom"}} />
+        <Item item={item} />
         <p>You can visually distinguish relics from artifacts by their <a style={{color:"black"}}>darker colors</a>. Probably something to do with that <a style={{color:"black"}}>dark ritual</a> I mentioned.</p>
         <p>Again, that one is not for sale. But I am sure you'll find quite a few relics in the shop next time, if I had to guess I would say that <b>3 out of 10 of items I have on display are relics</b>!</p></div>
             <div style={{color:"white"}}><b style={{textAlign:"center"}}>You have unlocked:</b>
@@ -261,5 +264,3 @@ export function levelFiftyFive(props){
             </div>
         </div>
 }
-
-export default Story;

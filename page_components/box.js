@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import { gen_rarity_odds, generate_artifact, colorByReward, rarityName, colorByRarity, ArtifactType, generate_relic, RelicType } from "./items";
 import { statsList, statById } from "./stats"
-import { currencies, elements, currencyById, soul } from "../functions/currencies";
+import { currencies, elements, currencyById, soul } from "./currencies";
 import ReactTooltip from 'react-tooltip';
 import ConfirmModal from "./components/modal"
 import Button from 'react-bootstrap/Button';
-import { missions, colorByMission } from "../functions/missions";
+import { missions, colorByMission } from "./missions";
 import { Map } from "immutable";
  
 export const wooden = {id: "woodB", name: "Wooden box", type: "artifact", rarity:1, src:"/wooden.png", odds:{1:70,2:25,3:4,4:1}};
@@ -43,7 +43,8 @@ export const Box = (props) => {
             <BoxBackground box={box}>
                 <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${box.src})`, textAlign:'center'}}>
                     <img
-                        src={require("/"+box.rarity+".png")}
+                        alt={box.rarity}
+                        src={"/"+box.rarity+".png"}
                         width={100}
                         height={100}
                     />
@@ -198,8 +199,8 @@ const Item = (props) => {
     <Background item={item}>
       <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${item.src})`}}>
         <div style={{width: 100, height:100}}>
-          <img
-              src={require("/"+item.rarity+".png")}
+          <img 
+              src={"/"+item.rarity+".png"}
               width={100}
               height={100}
               />
@@ -208,5 +209,3 @@ const Item = (props) => {
     </Background>
   )
 } 
-
-export default Box;

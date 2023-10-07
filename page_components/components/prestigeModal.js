@@ -3,10 +3,10 @@ import { Map } from "immutable";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import  {MemoItemTd as Item } from '../shop'
-import { currencies, elements, currencyById, soul } from '../../functions/currencies';
+import { currencies, elements, currencyById, soul } from '../currencies';
 import { add, scale } from "merchant.js";
 import { statById, statsList } from '../stats';
-import { missions } from "../../functions/missions";
+import { missions } from "../missions";
 import { boxes } from '../box';
 
 export default function PrestigeModal(props) {
