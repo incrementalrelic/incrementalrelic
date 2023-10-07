@@ -1,7 +1,7 @@
 # Minimal
 
 This is a simple example of the
-[`Merchant.js`](https://github.com/Flaque/merchant.js) framework.
+[`Merchant.js`](https://github.com/Flaque/merchant.js) framework. 
 
 [Live example here.](https://merchant-example.now.sh/)
 
