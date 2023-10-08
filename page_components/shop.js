@@ -22,14 +22,14 @@ const TypeMessage = ({isRelic, style, rarity}) => (
 
 const RelicMessage = ({isRelic, style, item}) => (
   <div>
-    {isRelic? <p style={style}>Applied if relic equipped during ressurection:</p> : (null)}
+    {isRelic? <p style={style}>Applied if relic equipped during reincarnation:</p> : (null)}
     {isRelic? <p style={{color:"#DB9D00"}}>{item.exp ?? 0}% of current exp {experience.icon}</p> : (null)}
   </div>
 );
 
 const OwnedRelicMessage = ({isRelic, style, item}) => (
   <div>
-    {isRelic? <p style={style}>If equiped on ressurection gain:</p> : (null)}
+    {isRelic? <p style={style}>If equiped on reincarnation gain:</p> : (null)}
     {isRelic? <p style={{color:"#DB9D00"}}>{item.exp ?? 0}% of current exp {experience.icon}</p> : (null)}
   </div>
 );
