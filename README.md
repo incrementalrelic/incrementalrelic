@@ -4,6 +4,7 @@ This an open source [incremental game](https://en.wikipedia.org/wiki/Incremental
 that revolves upgrading a relic.
 
 
+## Play
 [Live Version](https://incrementalrelic.github.io/incrementalrelic/)
 
 ## Dependencies
