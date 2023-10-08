@@ -22,23 +22,23 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      wallet: this.load("wallet"),
-      ledger: this.load("ledger"),
-      boostLedger: this.load("boostLedger"), 
-      artifactBonusLedger: this.load("artifactBonusLedger"), 
-      statBonusLedger: this.load("statBonusLedger"), 
-      stats: this.load("stats"),
-      artifactStats: this.load("artifactStats"),
-      relicStats: this.load("relicStats"),
-      missionStats: this.load("missionStats"),
-      inventory: this.load("inventory"), 
-      shop: this.load("shop"),
-      relic:this.load("relic"),
-      activeRelic:this.load("activeRelic"),
-      messagesShown: this.load("messages"),
-      info: this.load("info"),
-      boxes: this.load("boxes"),
-      skills: this.load("skills"),
+      wallet: new Map(),
+      ledger: new Map(),
+      boostLedger: new Map(),
+      artifactBonusLedger: new Map(),
+      statBonusLedger: new Map(),
+      stats: new Map(),
+      artifactStats: new Map(),
+      relicStats: new Map(),
+      missionStats: new Map(),
+      inventory: [],
+      shop: [],
+      relic: {},
+      activeRelic: {},
+      messagesShown: new Map(),
+      info: new Map(),
+      boxes: new Map(),
+      skills: new Map(),
       prestigeModal: false
     };
 
@@ -62,9 +62,35 @@ class App extends React.Component {
       element.reward = element.reward.bind(this)
       return element
     });
+  }
 
-    setInterval(this.update, 200);
-    setInterval(this.save, 10000);
+  componentDidMount() {
+    // Check if running on the client-side before accessing localStorage
+    if (typeof window !== 'undefined') {
+      this.setState({
+        wallet: this.load("wallet"),
+        ledger: this.load("ledger"),
+        boostLedger: this.load("boostLedger"), 
+        artifactBonusLedger: this.load("artifactBonusLedger"), 
+        statBonusLedger: this.load("statBonusLedger"), 
+        stats: this.load("stats"),
+        artifactStats: this.load("artifactStats"),
+        relicStats: this.load("relicStats"),
+        missionStats: this.load("missionStats"),
+        inventory: this.load("inventory"), 
+        shop: this.load("shop"),
+        relic:this.load("relic"),
+        activeRelic:this.load("activeRelic"),
+        messagesShown: this.load("messages"),
+        info: this.load("info"),
+        boxes: this.load("boxes"),
+        skills: this.load("skills"),
+        prestigeModal: false
+      });
+
+      setInterval(this.update, 200);
+      setInterval(this.save, 10000);
+    }
   }
 
   update() {
@@ -119,18 +145,12 @@ class App extends React.Component {
     console.log("load "+name)
     try{
       if(name === "relic"){
-        if (typeof window !== 'undefined') {
-          var relic = JSON.parse(localStorage.getItem(name));
-          return { ...relic, effect: ()=>Map(relic?.effectV ?? {}), statEffect:Map(relic?.statEffect ?? {})};
-        }
-        return {};
+        var relic = JSON.parse(localStorage.getItem(name));
+        return { ...relic, effect: ()=>Map(relic?.effectV ?? {}), statEffect:Map(relic?.statEffect ?? {})};
       }
       if(name === "activeRelic"){
-        if (typeof window !== 'undefined') {
-          var activeRelic = JSON.parse(localStorage.getItem(name));
-          return { ...activeRelic, effect: ()=>Map(activeRelic?.effectV ?? {}), statEffect:Map(activeRelic?.statEffect ?? {})};
-        }
-        return {};
+        var activeRelic = JSON.parse(localStorage.getItem(name));
+        return { ...activeRelic, effect: ()=>Map(activeRelic?.effectV ?? {}), statEffect:Map(activeRelic?.statEffect ?? {})};
       }
     }
     catch(er){
@@ -140,16 +160,10 @@ class App extends React.Component {
     
     try{
       if(name === "inventory"){
-        if (typeof window !== 'undefined') {
-          return JSON.parse(localStorage.getItem(name)).map(x=>({...x, effect: ()=>Map(x.effectV), statEffect:Map(x.statEffect)}));
-        }
-        return [];
+        return JSON.parse(localStorage.getItem(name)).map(x=>({...x, effect: ()=>Map(x.effectV), statEffect:Map(x.statEffect)}));
       }
       if(name === "shop"){
-        if (typeof window !== 'undefined') {
-          return JSON.parse(localStorage.getItem(name)).map(x=>({...x, effect: ()=>Map(x.effectV), cost: ()=>Map(x.costV), statEffect:Map(x.statEffect)}));
-        }
-        return [];
+        return JSON.parse(localStorage.getItem(name)).map(x=>({...x, effect: ()=>Map(x.effectV), cost: ()=>Map(x.costV), statEffect:Map(x.statEffect)}));
       }
     }
     catch(er){
@@ -492,7 +506,7 @@ class App extends React.Component {
     var level_info = get_level_info(this.state.wallet.get(experience.id))
     var modal = null;
     var percentage = Number(Number(level_info.current_exp*100)/Number(level_info.next_level_exp)).toFixed(0)
-    if(!(this.state.messagesShown.get(""+level_info.level)) && messages[""+level_info.level] != undefined){
+    if(!(this.state.messagesShown.get(""+level_info.level)) && messages[""+level_info.level] != undefined && console.log()){
       modal =  <ConfirmModal title={level_info.level == 1 ? "Welcome" :"Level up"} children={ <MessageWrapper height={"300px"} mkey={""+level_info.level} />}
                 onClose={()=>{
                   const messagesShown = this.state.messagesShown.set(""+level_info.level, true)
@@ -506,7 +520,7 @@ class App extends React.Component {
       <div style={{margin:"10px"}}>
         {modal}
         {
-          typeof window !== 'undefined' && this.state.prestigeModal &&
+          this.state.prestigeModal &&
           <PrestigeModal activeRelic={this.state.activeRelic} relic={this.state.relic} ledger={this.state.ledger} skills={this.state.skills} 
                   relicStats={this.state.relicStats} artifactBonusLedger={this.state.artifactBonusLedger} statBonusLedger={this.state.statBonusLedger} 
                   soulBoosts={this.state.info} artifactStats={this.state.artifactStats} missionStats={this.state.missionStats} boostLedger={this.state.boostLedger}
@@ -516,14 +530,14 @@ class App extends React.Component {
         <table style={{ width: "100%", tableLayout:"fixed"}}>
           <thead>
             <tr>
-            { typeof window !== 'undefined' && currenciesShow.map((currency) =>
+            { currenciesShow.map((currency) =>
               <th key={currency.id} style={{minWidth:88/currenciesShow.length+"%", width:88/currenciesShow.length+"%", whiteSpace:"nowrap", color:"white", overflow:"hidden", textOverflow:"ellipsis"}}>
                 <h3>{currency.icon}
                   { Number(this.state.wallet.get(currency.id) || 0) >= 10000 ? Number(this.state.wallet.get(currency.id) || 0).toExponential(2) : Number(this.state.wallet.get(currency.id) || 0).toFixed(2)}
                 </h3>
               </th>)
             }
-            { typeof window !== 'undefined' && level_info.current_exp !== undefined && 
+            { level_info.current_exp !== undefined && 
               <th>
                 <div onClick={()=>this.showPrestige(level_info.level)} style={{ width: 150, height: 150, marginTop: 5 , marginBottom: 5 }}>
                   <CircularProgressbarWithChildren 
@@ -565,7 +579,7 @@ class App extends React.Component {
                 <div className='column'>
                   <div>
                     <h1 style={{color:"white", fontWeight: "bold"}}> Actions </h1>
-                    {typeof window !== 'undefined' && <ActionTabs missions={this.missions} level={level_info.level} boostLedger={this.state.boostLedger}/>}
+                    {<ActionTabs missions={this.missions} level={level_info.level} boostLedger={this.state.boostLedger}/>}
                   </div>
                 </div>
                 {

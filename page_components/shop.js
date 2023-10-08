@@ -41,10 +41,6 @@ const Background = ({children , item, isShop, origin}) => (
 );
 
 function Shop(props) {
-    if (typeof window === 'undefined') {
-      return (null)
-    }
-
     const [show, setShow] = useState(false);
     const gen_item = ()=> generate_item(props.level, {aBStatsMult:props.aBStatsMult}, props.aluck, props.rluck)
     const gen_items = () => [gen_item(), gen_item(), gen_item(), gen_item(), gen_item()];
@@ -322,7 +318,7 @@ function Item (props) {
   var {isShop, item, onClick, origin} = props
   return (
     <Background item={item} isShop={isShop} origin={origin}>
-      <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${config.basePath+"/"+item.src})`}}>
+      <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${config.basePath+item.src})`}}>
         <div style={{width: 100, height:100, backgroundImage: props.isShop && item.bought ? `url(${config.basePath+"/s.png"})` : !props.isShop && props.using ? `url(${config.basePath+"/u.png"})` : `url(${config.basePath+"/n.png"})`}}>
           <img
               alt={item.rarity}
