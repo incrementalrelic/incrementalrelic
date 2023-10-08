@@ -5,6 +5,8 @@ import { gen_rarity_odds, generate_artifact, colorByReward, rarityName, colorByR
 import { MemoItemTd as Item } from '../shop'
 import { CircularProgressbarWithChildren, buildStyles} from 'react-circular-progressbar';
 
+const config = require('../../next.config')
+
 //const item = {...generate_relic(10, 0, gen_rarity_odds({1:0,2:0,3:0,4:100})), cost: ()=>Map(), name: "The shopkeeper's heirloom"}
 
 export function Story(props){
@@ -38,7 +40,7 @@ export function MessageWrapper(props) {
         </div> 
         <div style={{ flex: 1, position: "relative" }}>
             <div style={{width: '100%', height: '100%', position: 'relative'}}>
-                <img src={"/chars/"+char[mkey]+".png"} alt={char[mkey]} layout="fill" objectFit="contain" objectPosition="top"/>
+                <img src={config.basePath+"/chars/"+char[mkey]+".png"} alt={char[mkey]} layout="fill" objectFit="contain" objectPosition="top"/>
             </div>
         </div>
       </div>

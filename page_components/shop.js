@@ -12,6 +12,8 @@ import Tab from 'react-bootstrap/Tab';
 import { missions, colorByMission } from "./missions";
 import { boxes, Box, BoxModal } from './box';
 
+const config = require('../next.config')
+
 const TypeMessage = ({isRelic, style, rarity}) => (
   <div>
     <p style={{color: isRelic? "#DB9D00" : "#e5e5e5"}}>{rarityName(rarity)} {isRelic? "Relic" : "Artifact"}</p>
@@ -324,7 +326,7 @@ function Item (props) {
         <div style={{width: 100, height:100, backgroundImage: props.isShop && item.bought ? `url(${"/s.png"})` : !props.isShop && props.using ? `url(${"/u.png"})` : `url(${"/n.png"})`}}>
           <img
               alt={item.rarity}
-              src={"/"+item.rarity+".png"}
+              src={config.basePath+"/"+item.rarity+".png"}
               width={100}
               height={100}
               onClick={() => onClick(item)}

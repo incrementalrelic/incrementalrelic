@@ -7,6 +7,8 @@ import ConfirmModal from "./components/modal"
 import Button from 'react-bootstrap/Button';
 import { missions, colorByMission } from "./missions";
 import { Map } from "immutable";
+
+const config = require('../next.config')
  
 export const wooden = {id: "woodB", name: "Wooden box", type: "artifact", rarity:1, src:"/wooden.png", odds:{1:70,2:25,3:4,4:1}};
 export const steel = {id: "steelB", name: "Steel box", type: "artifact", rarity:2, src:"/steel.png", odds:{1:50,2:40,3:9,4:1}};
@@ -44,7 +46,7 @@ export const Box = (props) => {
                 <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${box.src})`, textAlign:'center'}}>
                     <img
                         alt={box.rarity}
-                        src={"/"+box.rarity+".png"}
+                        src={config.basePath+"/"+box.rarity+".png"}
                         width={100}
                         height={100}
                     />
@@ -200,7 +202,7 @@ const Item = (props) => {
       <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${item.src})`}}>
         <div style={{width: 100, height:100}}>
           <img 
-              src={"/"+item.rarity+".png"}
+              src={config.basePath+"/"+item.rarity+".png"}
               width={100}
               height={100}
               />
