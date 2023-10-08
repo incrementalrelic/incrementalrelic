@@ -63,7 +63,7 @@ export function levelOne(props){
 }
 
 export function levelThree(props){
-    return <div><div style={{color:"#f5ab35"}}><p>Oh, You are back already... Well I guess I can't delay it any longer.</p><p>I see you gathered a few elements too {fire.icon}{water.icon}{earth.icon}{air.icon}. I'll teach you some basic rituals, try getting use to them.</p>
+    return <div><div style={{color:"#f5ab35"}}><p>Oh, You are back already... Well I guess I can't delay it any longer.</p><p>I see you gathered a few elements too {fire.icon}{water.icon}{earth.icon}{air.icon}. I'll teach you some basic rituals, try getting used to them.</p>
         <p>You'll lose some of the elements {fire.icon}{water.icon}{earth.icon}{air.icon} you collected, but at least you get some experience {experience.icon} and a little bit of gold {gold.icon}.</p></div>
             <div style={{color:"white"}}><b>You have unlocked:</b>
                 <p>-Action: Elemental rituals</p>
@@ -73,8 +73,8 @@ export function levelThree(props){
 
 export function levelEight(props){
     return <div><div style={{color:"#f5ab35"}}><p>What!? You are here again? I am very busy as always...</p>
-                <p>You want to learn a new ritual? Hmmm, I see you already mastered the ones I tought you at first.</p>
-                <p>Well I guess I could teach You elemental transmutation. Unlike the other rituals I tought You, these allow You to tranform elements of a given type into a different one {water.icon+"->"+fire.icon}.</p>
+                <p>You want to learn a new ritual? Hmmm, I see you already mastered the ones I taught you.</p>
+                <p>Well, I guess I could teach You elemental transmutation. Unlike the other rituals I tought You, these allow You to tranform elements of a given type into a different one {water.icon+"->"+fire.icon}.</p>
                 <p>These rituals are a powerful tool to have in every elementalist toolbox. But more important than having learned something from someone is learning something by yourself.</p>
                 <p>So go and master these new tools and next time try to learn the rituals by yourself instead of bothering me again!</p>
                 </div>
@@ -85,14 +85,14 @@ export function levelEight(props){
 }
 
 export function levelTen(props){
-    return <div><div style={{color:"#00a4a6"}}><p>Psssht</p><p>Hey kiddo, you are a elementalist right? I knew it! Well you have great luck! You see, I have aquired these brand new <em>ancient</em> artifacts and I am selling them for cheap.</p>
-        <p>Artifacts provides a variety of buffs like this one:</p>
+    return <div><div style={{color:"#00a4a6"}}><p>Psssht</p><p>Hey kiddo, you are a elementalist right? I knew it! Well you have great luck! You see, I have acquired these brand new <em>ancient</em> artifacts and I am selling them for cheap.</p>
+        <p>Artifacts provide a variety of buffs like this one:</p>
         <Item item={{...generate_artifact(10, 0, gen_rarity_odds({1:0,2:0,3:0,4:100})), cost: ()=>Map(), name: "The shopkeeper's heirloom"}} />
         <p>The colors of the artifact represent its elemental rewards <a style={{color:colorByReward(fire.id)}}>red</a> {fire.icon}, <a style={{color:colorByReward(water.id)}}>blue</a> {water.icon}
         , <a style={{color:colorByReward(earth.id)}}>green</a> {earth.icon} and <a style={{color:colorByReward(air.id)}}>grey</a> {air.icon}.</p>
-        <p>They also come in 4 different rarities <a style={{color:colorByRarity(1)}}>{rarityName(1)}</a>, <a style={{color:colorByRarity(2)}}>{rarityName(2)}</a>
+        <p>They also come in four different rarities <a style={{color:colorByRarity(1)}}>{rarityName(1)}</a>, <a style={{color:colorByRarity(2)}}>{rarityName(2)}</a>
         , <a style={{color:colorByRarity(3)}}>{rarityName(3)}</a> and <a style={{color:colorByRarity(4)}}>{rarityName(4)}</a>, with each rarity giving different types of buffs.</p>
-        <p>No, that one is not for sale. I have other stuff tho, top notch quality too so make sure to look around!</p></div>
+        <p>No, that one is not for sale, but I have other stuff, top notch quality too so make sure to look around!</p></div>
             <div style={{color:"white"}}><b style={{textAlign:"center"}}>You have unlocked:</b>
                 <p>-Shop</p>
                 <p>-Artifacts</p>
@@ -128,7 +128,7 @@ export function levelTwenty(props){
                 <p>Hello elementalist, it seems it's finally time for You to learn about reincarnation! I'm professor <b>Aqua</b> and I'm a speciallist on reincarnation.</p>
                 <p>Reincarnation is a special ritual where you sacrifice your level, artifacts and unused relics in exchange for your equipped relic blessing and power. Additionally You will aquire some of the sacrificed artifacts' souls {soul.icon}</p>
                 <p>These souls {soul.icon} can be used to further strengthen your relic or for some more other enhancements that I'll soon tell you about</p>
-                <p>Once you're ready to reincarnate press the level indicator at the top of the page</p>
+                <p>Once you're ready to reincarnate, press the level indicator at the top of the page</p>
                 
                 <div style={{ width: 150, height: 150, marginTop: 5 , marginBottom: 5 }}>
                     <CircularProgressbarWithChildren 
@@ -229,7 +229,7 @@ export function levelFortyFive(props){
     return <div>
             <div style={{color:"#00ffff"}}>
                 <p>It seems I underestimated the rarity of <a style={{color:colorByRarity(3)}}>{rarityName(3)}</a> and <a style={{color:colorByRarity(4)}}>{rarityName(4)}</a> relics. I'll let on in a secret then.</p>
-                <p>If You visit the workshop You shoul be able to acess the item fusion station. In there you can fuse several artifacts and relics into higher rarirty ones.</p>
+                <p>If You visit the workshop, you should be able to acess the item fusion station. In there you can fuse several artifacts and relics into higher rarirty ones.</p>
                 <p>I have heard rumors that if You use the station for a <a style={{color:colorByRarity(4)}}>{rarityName(4)}</a> item it changes the items bonuses, so it can be a good idea to get specific bonuses for the relic transfusion ritual.</p>
             </div>
             <div style={{color:"white"}}><b>You have unlocked:</b>
