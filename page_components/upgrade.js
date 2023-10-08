@@ -12,6 +12,8 @@ import Tab from 'react-bootstrap/Tab';
 import { Map } from "immutable";
 import { v4 as uuidv4} from 'uuid';
 
+const config = require('../next.config')
+
 const relicBuff = (reward, n) => {
     var reward_gold = () => n>1 ? Number(expectedSumOfRandomNumbers(8,10,n)*0.01).toFixed(2) : randomIntFromInterval(8,10)*0.01
     var reward_elem = () => n>1 ? Number(expectedSumOfRandomNumbers(10,30,n)*0.001).toFixed(3) : randomIntFromInterval(10,30)*0.001
@@ -298,7 +300,7 @@ function MergeRelic(props) {
                     </table>
                 </div>
                 <div className="column">
-                    <div style={{ width: 100, height:100 ,position: "relative", height: "100px", backgroundImage: `url(/plus.png)`, alignSelf:'center'}}/>
+                    <div style={{ width: 100, height:100 ,position: "relative", height: "100px", backgroundImage: `url(${config.basePath+"/plus.png"})`, alignSelf:'center'}}/>
                 </div>
                 <div className="column">
                     <table style={{paddingLeft:"10px", width:"fit-content"}}>
@@ -310,7 +312,7 @@ function MergeRelic(props) {
                     </table>
                 </div>
                 <div className="column">
-                    <div style={{ width: 100, height:100 ,position: "relative", height: "100px", backgroundImage: `url(/equals.png)`, alignSelf:'center'}}/>
+                    <div style={{ width: 100, height:100 ,position: "relative", height: "100px", backgroundImage: `url(${config.basePath+"/equals.png"})`, alignSelf:'center'}}/>
                 </div>
                 <div className="column">
                     <table style={{paddingLeft:"10px", width:"fit-content"}}>

@@ -43,7 +43,7 @@ export const Box = (props) => {
     return (
         <td onClick={()=>props.openModal(box)}>
             <BoxBackground box={box}>
-                <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${box.src})`, textAlign:'center'}}>
+                <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${config.basePath+"/"+box.src})`, textAlign:'center'}}>
                     <img
                         alt={box.rarity}
                         src={config.basePath+"/"+box.rarity+".png"}
@@ -199,7 +199,7 @@ const Item = (props) => {
   var {item} = props
   return (
     <Background item={item}>
-      <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${item.src})`}}>
+      <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${config.basePath+"/"+item.src})`}}>
         <div style={{width: 100, height:100}}>
           <img 
               src={config.basePath+"/"+item.rarity+".png"}

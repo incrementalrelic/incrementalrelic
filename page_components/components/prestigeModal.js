@@ -9,6 +9,8 @@ import { statById, statsList } from '../stats';
 import { missions } from "../missions";
 import { boxes } from '../box';
 
+const config = require('../next.config')
+
 export default function PrestigeModal(props) {
   const [show, setShow] = useState(true);
 
@@ -59,7 +61,7 @@ export default function PrestigeModal(props) {
               </table>
               </div>
               <div class="column">
-              <div style={{ width: 100, height:100, marginTop:"40px" ,position: "relative", height: "100px", backgroundImage: `url(/arrow.png)`, alignSelf:'center'}}>
+              <div style={{ width: 100, height:100, marginTop:"40px" ,position: "relative", height: "100px", backgroundImage:  `url(${config.basePath+"/arrow.png"})`, alignSelf:'center'}}>
               </div>
               </div>
               <div class="column">

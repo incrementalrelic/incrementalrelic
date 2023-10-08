@@ -322,8 +322,8 @@ function Item (props) {
   var {isShop, item, onClick, origin} = props
   return (
     <Background item={item} isShop={isShop} origin={origin}>
-      <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${item.src})`}}>
-        <div style={{width: 100, height:100, backgroundImage: props.isShop && item.bought ? `url(${"/s.png"})` : !props.isShop && props.using ? `url(${"/u.png"})` : `url(${"/n.png"})`}}>
+      <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${config.basePath+"/"+item.src})`}}>
+        <div style={{width: 100, height:100, backgroundImage: props.isShop && item.bought ? `url(${config.basePath+"/s.png"})` : !props.isShop && props.using ? `url(${config.basePath+"/u.png"})` : `url(${config.basePath+"/n.png"})`}}>
           <img
               alt={item.rarity}
               src={config.basePath+"/"+item.rarity+".png"}
