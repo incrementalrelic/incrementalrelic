@@ -40,7 +40,7 @@ export function MessageWrapper(props) {
         </div> 
         <div style={{ flex: 1, position: "relative" }}>
             <div style={{width: '100%', height: '100%', position: 'relative'}}>
-                <img src={config.basePath+"/chars/"+char[mkey]+".png"} alt={char[mkey]} layout="fill" objectFit="contain" objectPosition="top"/>
+                <img src={config.basePath+"/chars/"+char[mkey]+".png"} alt={char[mkey]} position="absolute" width={"100%"}/>
             </div>
         </div>
       </div>
