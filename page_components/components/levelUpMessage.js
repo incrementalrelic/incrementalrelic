@@ -7,7 +7,7 @@ import { CircularProgressbarWithChildren, buildStyles} from 'react-circular-prog
 
 const config = require('../../next.config')
 
-//const item = {...generate_relic(10, 0, gen_rarity_odds({1:0,2:0,3:0,4:100})), cost: ()=>Map(), name: "The shopkeeper's heirloom"}
+const item = {...generate_relic(10, 0, gen_rarity_odds({1:0,2:0,3:0,4:100})), cost: ()=>Map(), name: "The shopkeeper's heirloom"}
 
 export function Story(props){
     const keys = Object.keys(messages).filter(x=> x <= props.level)
@@ -47,8 +47,8 @@ export function MessageWrapper(props) {
     );
 }
 
-export const messages = {"1":levelOne(), "3": levelThree(), "8": levelEight(),// "10": levelTen(), 
-                        "15":levelFifteen(), //"18":levelEighteen(), 
+export const messages = {"1":levelOne(), "3": levelThree(), "8": levelEight(), "10": levelTen(), 
+                        "15":levelFifteen(), "18":levelEighteen(), 
                         "20": levelTwenty(), "25": levelTwentyFive(), "30": levelThirty(), "35":levelThirtyFive(), "40":levelForty(),
                         "45": levelFortyFive(), "50": levelFifty(), "55": levelFiftyFive()}
 
