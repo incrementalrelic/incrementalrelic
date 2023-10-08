@@ -1,13 +1,14 @@
-# Minimal
+# Incremental Relic
 
-This is a simple example of the
-[`Merchant.js`](https://github.com/Flaque/merchant.js) framework. 
+This an open source [incremental game](https://en.wikipedia.org/wiki/Incremental_game)
+that revolves upgrading a relic.
 
-[Live example here.](https://merchant-example.now.sh/)
+
+[Live Version](https://incrementalrelic.github.io/incrementalrelic/)
 
 ## Dependencies
 
-This example is built with [next.js](https://github.com/zeit/next.js/) and
+It is built with [next.js](https://github.com/zeit/next.js/) and
 React. Before running, you should run an install:
 
 With yarn:
@@ -22,9 +23,9 @@ With npm:
 npm install
 ```
 
-## Running Example
+## Running
 
-You run the example by cloning this repo, cd'ing into `examples/minimal` and
+You run the game by cloning this repo and
 then:
 
 With yarn:
@@ -38,3 +39,7 @@ With npm:
 ```
 npm run dev
 ```
+
+## Special Thanks
+
+This project uses [`Merchant.js`](https://github.com/Flaque/merchant.js) framework. Check them out! 
