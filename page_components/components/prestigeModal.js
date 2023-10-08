@@ -9,7 +9,7 @@ import { statById, statsList } from '../stats';
 import { missions } from "../missions";
 import { boxes } from '../box';
 
-const config = require('../next.config')
+const config = require('../../next.config')
 
 export default function PrestigeModal(props) {
   const [show, setShow] = useState(true);
