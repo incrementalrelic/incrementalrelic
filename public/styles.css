@@ -19,9 +19,7 @@ body{
            linear-gradient(
              rgba(51, 51, 51, 1), 
              rgba(51, 51, 51, 1)
-           ),
-           /* bottom, image */
-           url(http://fc02.deviantart.net/fs71/i/2011/274/6/f/ocean__sky__stars__and_you_by_muddymelly-d4bg1ub.png);
+           )
        }
 
 table{

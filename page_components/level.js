@@ -6,7 +6,7 @@ function next_level(level, prev_exp, exp){
     if(level == 3){
         prev_exp = Number(prev_exp) + 23
     }
-    if(Number(exp) > Number(prev_exp)){
+    if(Number(exp) >= Number(prev_exp)){
         return next_level(level+1, Number(prev_exp*mult).toFixed(0), Number(exp-prev_exp).toFixed(0))
     }
     return {level: level, next_level_exp: Number(prev_exp).toFixed(0), current_exp: Number(exp).toFixed(0)}
