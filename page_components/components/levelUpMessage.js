@@ -126,8 +126,8 @@ export function levelTwenty(props){
     return <div>
             <div style={{color:"#00ffff"}}>
                 <p>Hello elementalist, it seems it's finally time for You to learn about reincarnation! I'm professor <b>Aqua</b> and I'm a speciallist on reincarnation.</p>
-                <p>Reincarnation is a special ritual where you sacrifice your level and artifacts in exchange for you relics blessing and power. Additionally You will aquire some of the sacrificed artifacts' souls {soul.icon}</p>
-                <p>These souls {soul.icon} can be used to further strengthen you relic or for some more other enhancements that I'll soon tell you about</p>
+                <p>Reincarnation is a special ritual where you sacrifice your level, artifacts and unused relics in exchange for your equipped relic blessing and power. Additionally You will aquire some of the sacrificed artifacts' souls {soul.icon}</p>
+                <p>These souls {soul.icon} can be used to further strengthen your relic or for some more other enhancements that I'll soon tell you about</p>
                 <p>Once you're ready to reincarnate press the level indicator at the top of the page</p>
                 
                 <div style={{ width: 150, height: 150, marginTop: 5 , marginBottom: 5 }}>
@@ -156,7 +156,7 @@ export function levelTwenty(props){
                         </div>
                     </CircularProgressbarWithChildren>
                 </div>
-                <p>I would recommend on having at least an epic or ideally a legendary relic, but if you can't find one you can just go with the best rare you can find</p></div>
+                <p>I would recommend on having at least an epic or ideally a legendary relic, but if you can't find one you can just go with the best rare you have</p></div>
             <div style={{color:"white"}}><b>You have unlocked:</b>
                 <p>-Reincarnation</p>
             </div>

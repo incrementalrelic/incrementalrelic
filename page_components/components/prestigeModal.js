@@ -105,7 +105,7 @@ export default function PrestigeModal(props) {
                 :null)
               }
               {statsList.map((stat) =>
-                diffStats.get(stat.id) == 0 ? null :
+                diffStats.get(stat.id) != 0 && diffStats.get(stat.id) &&
                 <p key={stat.id} style={{color: diffStats.get(stat.id)>0 ? "green" : "red", paddingLeft:"10px"}}>{diffStats.get(stat.id)>0 ? "+":""}{Number(Number(diffStats.get(stat.id) || 0).toFixed(1))} {stat.icon}</p>)
               }
             </div>
