@@ -39,7 +39,8 @@ class App extends React.Component {
       info: new Map(),
       boxes: new Map(),
       skills: new Map(),
-      prestigeModal: false
+      prestigeModal: false,
+      loading: true,
     };
 
     this.showPrestige = this.showPrestige.bind(this);
@@ -85,7 +86,8 @@ class App extends React.Component {
         info: this.load("info"),
         boxes: this.load("boxes"),
         skills: this.load("skills"),
-        prestigeModal: false
+        prestigeModal: false,
+        loading:false,
       });
 
       setInterval(this.update, 200);
@@ -506,7 +508,7 @@ class App extends React.Component {
     var level_info = get_level_info(this.state.wallet.get(experience.id))
     var modal = null;
     var percentage = Number(Number(level_info.current_exp*100)/Number(level_info.next_level_exp)).toFixed(0)
-    if(!(this.state.messagesShown.get(""+level_info.level)) && messages[""+level_info.level] != undefined && console.log()){
+    if(!this.state.loading && !(this.state.messagesShown.get(""+level_info.level)) && messages[""+level_info.level] != undefined){
       modal =  <ConfirmModal title={level_info.level == 1 ? "Welcome" :"Level up"} children={ <MessageWrapper height={"300px"} mkey={""+level_info.level} />}
                 onClose={()=>{
                   const messagesShown = this.state.messagesShown.set(""+level_info.level, true)
