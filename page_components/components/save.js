@@ -84,7 +84,7 @@ class MyComponent extends Component {
                     </Button>
                 </div>
                 <div style={{color:"white", paddingTop:"45px"}}>
-                    <p>Consider joining the discord: <a style={{color:"white"}} href="https://discord.gg/mpkthKJP">https://discord.gg/mpkthKJP</a></p> 
+                    <p>Consider joining the discord: <a style={{color:"white"}} href="https://discord.gg/7BZfa3QZc7">https://discord.gg/7BZfa3QZc7</a></p> 
                     <p>Code avaliable at: <a style={{color:"white"}} href="https://github.com/incrementalrelic/incrementalrelic">https://github.com/incrementalrelic/incrementalrelic</a></p>
                 </div>
             </div>
