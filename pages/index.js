@@ -531,12 +531,14 @@ class App extends React.Component {
         }
         <table style={{ width: "100%", tableLayout:"fixed"}}>
           <thead>
-            <tr>
+            <tr >
             { currenciesShow.map((currency) =>
-              <th key={currency.id} style={{minWidth:88/currenciesShow.length+"%", width:88/currenciesShow.length+"%", whiteSpace:"nowrap", color:"white", overflow:"hidden", textOverflow:"ellipsis"}}>
+              <th key={currency.id} style={{minWidth:88/currenciesShow.length+"%", width:88/currenciesShow.length+"%", whiteSpace:"nowrap", color:"white", overflow:"hidden", textOverflow:"ellipsis", position: "relative"}}>
                 <h3>{currency.icon}
                   { Number(this.state.wallet.get(currency.id) || 0) >= 10000 ? Number(this.state.wallet.get(currency.id) || 0).toExponential(2) : Number(this.state.wallet.get(currency.id) || 0).toFixed(2)}
                 </h3>
+                {(this.state.ledger.get(currency.id) != 0 && this.state.ledger.get(currency.id)  &&
+                <a key={currency.id} style={{color: this.state.ledger.get(currency.id)>0 ? "green": "red", marginLeft:"50px", position:"absolute", top:"50%", transform:"translateY(50%)" }}>{Number(this.state.ledger.get(currency.id)*5 || 0).toFixed(3)} {currency.icon} /s </a>)}
               </th>)
             }
             { level_info.current_exp !== undefined && 
@@ -590,7 +592,7 @@ class App extends React.Component {
                     <Shop items={this.state.shop} buy={this.buyItem} updateShop={this.updateShop} level={level_info.level} 
                           artifactBonusLedger={this.state.artifactBonusLedger} shopcd={this.state.info.get("shopcd") ?? 0} 
                           aluck={this.state.info.get("shopal") ?? 0} rluck={this.state.info.get("shoprl") ?? 0}
-                          aBStatsMult={this.state.info.get("aBStatsMult") ?? 0}/>
+                          aBStatsMult={this.state.info.get("aBStatsMult") ?? 0} maxlevel={this.state.info.get("maxLevel") ?? 0}/>
                     <br/>
                     <Inventory items={this.state.inventory} ledger={this.state.ledger} boxesState={this.state.boxes} openBox={this.buyItem} 
                           artifactBonusLedger={this.state.artifactBonusLedger} maxlevel={this.state.info.get("maxLevel") ?? 0}

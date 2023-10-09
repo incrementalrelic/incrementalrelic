@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import Button from 'react-bootstrap/Button';
 import { experience, gold, fire, water, earth, air, soul } from "../currencies";
 import { gen_rarity_odds, generate_artifact, colorByReward, rarityName, colorByRarity, generate_relic } from "../items";
@@ -12,6 +12,9 @@ const item = {...generate_relic(10, 0, gen_rarity_odds({1:0,2:0,3:0,4:100})), co
 export function Story(props){
     const keys = Object.keys(messages).filter(x=> x <= props.level)
     const [messageKey, setMessageKey] = useState(keys.length-1);
+    useEffect(() => {
+        setMessageKey(keys.length-1)
+    }, [props.level]);
     return <div style={{backgroundColor:"#333333" , height: "500px", fontWeight:"bold"}}>
         <div className="d-flex flex-row">
             <Button style={{color: "white", fontWeight:"bold", backgroundColor:"#494949", borderColor:"#494949"}}

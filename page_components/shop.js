@@ -73,7 +73,7 @@ function Shop(props) {
           () => {
             setShow(false)
           },
-          (20-props.shopcd)*1000
+          (15-props.shopcd)*1000
       );
   };
 
@@ -85,7 +85,7 @@ function Shop(props) {
         </div>
         <div className='column'>
           <ReactiveButton style={{ width: "100%", marginTop:"7px", fontWeight: "bold"}} height= "inherit" buttonState={show ? "loading" : "idle"} 
-                              loadDuration={20-props.shopcd} onClick={ (e) => onClickHandler()} idleText={"Refresh Shop"}/>
+                              loadDuration={15-props.shopcd} onClick={ (e) => onClickHandler()} idleText={"Refresh Shop"}/>
         </div>
       </div>
       <table style={{ width: "100%", height: "110px"}}>  
@@ -93,7 +93,7 @@ function Shop(props) {
             <tr>
               {items.map((item, index) =>
                 <td key={item.id}>
-                    <MemoItem item={item} isShop={true} onClick={(e) => {
+                    <MemoItem item={item} isShop={true} firstShop={Math.max(props.maxlevel, props.level)<=10} onClick={(e) => {
                           if(!item.bought){
                             item.bought = props.buy(e)
                             if(item.bought){
@@ -119,7 +119,7 @@ function Shop(props) {
                         }
                         {item.effect().get("mission") && Object.entries(item.effect().get("mission")).map(([key, value]) =>
                           elements.some(e=> e.id== key) ?
-                          <p key={key} style={{color: colorByRarity(4)}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByReward(key)}}>{currencyById(key).icon} missions</span></p>
+                          <p key={key} style={{color: colorByRarity(4)}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByReward(key)}}>{currencyById(key).icon} actions</span></p>
                           :<p key={key} style={{color: colorByRarity(3)}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByMission(missions[key])}}>{missions[key].text}</span></p>
                         )}
                         {item.effect().get("artifactBonus") && Object.entries(item.effect().get("artifactBonus")).map(([key, value]) =>
@@ -299,7 +299,7 @@ function Inventory(props) {
           }
           {props.boostLedger.entrySeq().sort(function([key1, value1], [key2, value2]) { return !isNaN(key2) && isNaN(key1) ? -1 : value2 - value1 }).map(([key, value]) =>
               elements.some(e=> e.id== key) ?
-              <p key={key} style={{color: colorByRarity(4), paddingLeft:"10px", fontWeight:"bold"}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByReward(key)}}>{currencyById(key).icon} missions</span></p>
+              <p key={key} style={{color: colorByRarity(4), paddingLeft:"10px", fontWeight:"bold"}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByReward(key)}}>{currencyById(key).icon} actions</span></p>
               : <p key={key} style={{color: colorByRarity(3), paddingLeft:"10px", fontWeight:"bold"}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByMission(missions[key])}}>{missions[key].text}</span></p>)
           }
         </div>
@@ -315,18 +315,23 @@ const MemoItemTd = React.memo(ItemTd)
 export {MemoInventory, MemoShop, MemoItemTd}
 
 function Item (props) {
-  var {isShop, item, onClick, origin} = props
+  var {isShop, item, onClick, origin, firstShop} = props
   return (
     <Background item={item} isShop={isShop} origin={origin}>
       <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${config.basePath+item.src})`}}>
-        <div style={{width: 100, height:100, backgroundImage: props.isShop && item.bought ? `url(${config.basePath+"/s.png"})` : !props.isShop && props.using ? `url(${config.basePath+"/u.png"})` : `url(${config.basePath+"/n.png"})`}}>
+        <div style={{width: 100, height:100, backgroundImage: props.isShop && item.bought ? `url(${config.basePath+"/s.png"})` : !props.isShop && props.using ? `url(${config.basePath+"/u.png"})` : `url(${config.basePath+"/n.png"})`}}
+          onClick={() => onClick(item)} >
           <img
               alt={item.rarity}
-              src={config.basePath+"/"+item.rarity+".png"}
+              src={config.basePath+"/"+(item.type === RelicType?"r":"")+item.rarity+".png"}
               width={100}
               height={100}
-              onClick={() => onClick(item)}
               />
+          {firstShop &&
+           <div style={{position:'absolute', paddingLeft:"3px" , paddingRight:"3px" , top:"2px", right: "2px", color: "white", backgroundColor: colorByRarity(item.rarity), userSelect:"none" }} >Click to buy</div>}
+          {isShop &&
+           <div style={{position:'absolute', paddingLeft:"3px" , bottom:"2px", right: "2px", color: "white", backgroundColor: colorByRarity(item.rarity) , userSelect:"none" }}>{currencies.map((currency) =>
+            item.effect().get(currency.id) != 0 && item.effect().get(currency.id) && currency.icon)}</div>}
         </div>
       </div>
     </Background>
@@ -356,7 +361,7 @@ function ItemTd (props) {
             }
             {item.effect().get("mission") && Object.entries(item.effect().get("mission")).map(([key, value]) => {
               return elements.some(e=> e.id== key) ?
-              <p key={key} style={{color: colorByRarity(4)}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByReward(key)}}>{currencyById(key).icon} missions</span></p>
+              <p key={key} style={{color: colorByRarity(4)}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByReward(key)}}>{currencyById(key).icon} actions</span></p>
               : <p key={key} style={{color: colorByRarity(3)}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByMission(missions[Number(key)])}}>{missions[Number(key)].text}</span></p>
             }
             )}

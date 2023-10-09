@@ -50,7 +50,7 @@ export const Box = (props) => {
                         width={100}
                         height={100}
                     />
-                    <div style={{position:'absolute', paddingLeft:"3px" , bottom:"3px", right: "3px", color: "white", backgroundColor: "black" }}>{quantity}</div>
+                    <div style={{position:'absolute', paddingLeft:"3px" , bottom:"3px", right: "3px", color: "white", backgroundColor: "black", userSelect:"none" }}>{quantity}</div>
                 </div>
             </BoxBackground>
             <BoxToolTip {...props}/>
@@ -108,7 +108,7 @@ export const BoxModal = (props) =>{
                 }
                 {item.effect().get("mission") && Object.entries(item.effect().get("mission")).map(([key, value]) =>
                   elements.some(e=> e.id== key) ?
-                  <p key={key} style={{color: colorByRarity(4)}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByReward(key)}}>{currencyById(key).icon} missions</span></p>
+                  <p key={key} style={{color: colorByRarity(4)}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByReward(key)}}>{currencyById(key).icon} actions</span></p>
                   :<p key={key} style={{color: colorByRarity(3)}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByMission(missions[key])}}>{missions[key].text}</span></p>
                 )}
                 {item.effect().get("artifactBonus") && Object.entries(item.effect().get("artifactBonus")).map(([key, value]) =>

@@ -87,7 +87,7 @@ export default function PrestigeModal(props) {
               {diffBoost.entrySeq().sort(function([key1, value1], [key2, value2]) { return !isNaN(key2) && isNaN(key1) ? -1 : value2 - value1 }).map(([key, value]) =>
                 value===0? null
                 :elements.some(e=> e.id== key) ?
-                <p key={key} style={{color: value>0 ? "green": "red", paddingLeft:"10px", fontWeight:"bold"}}>{value>0 ? "+":""}{Number(value*100).toFixed(0)}% boost for {currencyById(key).icon} missions</p>
+                <p key={key} style={{color: value>0 ? "green": "red", paddingLeft:"10px", fontWeight:"bold"}}>{value>0 ? "+":""}{Number(value*100).toFixed(0)}% boost for {currencyById(key).icon} actions</p>
                 : <p key={key} style={{color: value>0 ? "green": "red", paddingLeft:"10px", fontWeight:"bold"}}>{value>0 ? "+":""}{Number(value*100).toFixed(0)}% boost for {missions[key].text}</p>)
               }
               {diffArtifactBoost.entrySeq().sort(function([key1, value1], [key2, value2]) { return !isNaN(key2) && isNaN(key1) ? -1 : value2 - value1 }).map(([key, value]) =>
@@ -123,7 +123,7 @@ export default function PrestigeModal(props) {
             {boostLost.entrySeq().sort(function([key1, value1], [key2, value2]) { return !isNaN(key2) && isNaN(key1) ? -1 : value2 - value1 }).map(([key, value]) =>
               value>=0? null
               :elements.some(e=> e.id== key) ?
-              <p key={key} style={{color: "red", paddingLeft:"10px", fontWeight:"bold"}}>{Number(value*100).toFixed(0)}% boost for {currencyById(key).icon} missions</p>
+              <p key={key} style={{color: "red", paddingLeft:"10px", fontWeight:"bold"}}>{Number(value*100).toFixed(0)}% boost for {currencyById(key).icon} actions</p>
               : <p key={key} style={{color: "red", paddingLeft:"10px", fontWeight:"bold"}}>{Number(value*100).toFixed(0)}% boost for {missions[key].text}</p>)
             }
             {artifactBoostLost.entrySeq().sort(function([key1, value1], [key2, value2]) { return !isNaN(key2) && isNaN(key1) ? -1 : value2 - value1 }).map(([key, value]) =>

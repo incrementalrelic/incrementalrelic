@@ -71,7 +71,7 @@ class MyComponent extends Component {
             <div style={{paddingLeft:"10px", fontWeight:"bold"}}>
                 <div style={{color:"white"}}>
                     <p>The game automatically saves every 10 seconds to the browser storage.</p>
-                    <p>You can backup your save using the buttons bellow.</p>
+                    <p>You can backup your save using the buttons below.</p>
                 </div>
                 <div>
                     <Button style={{backgroundColor:"#00a4a6", borderColor:"#00a4a6", fontWeight:"bold"}}
