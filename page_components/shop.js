@@ -78,7 +78,7 @@ function Shop(props) {
   };
 
   return (
-    <div>
+    <div style={{marginBottom : "30px"}}>
       <div className="row">
         <div className='column'>
           <h1 style={{color:"white", fontWeight: "bold"}}>Shop</h1>

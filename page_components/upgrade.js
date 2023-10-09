@@ -402,27 +402,68 @@ function SoulShop(props) {
                     </tr>
                     <tr>
                         <td>
-                            <Button style={{backgroundColor:colorByReward(fire.id), borderColor:colorByReward(fire.id), width:"100%", fontWeight:"bold"}}
+                            <Button style={{backgroundColor:colorByReward(fire.id), borderColor:colorByReward(fire.id), width:"100%", fontWeight:"bold", marginBottom: "10px"}}
                                 onClick={()=> props.buyElement(Map({[fire.id]:250, [gold.id]:-10000}))}>
                                 Buy for 10000 {gold.icon}
                             </Button>
                         </td>
                         <td>
-                            <Button style={{backgroundColor:colorByReward(water.id), borderColor:colorByReward(water.id), width:"100%", fontWeight:"bold"}}
+                            <Button style={{backgroundColor:colorByReward(water.id), borderColor:colorByReward(water.id), width:"100%", fontWeight:"bold", marginBottom: "10px"}}
                                 onClick={()=> props.buyElement(Map({[water.id]:250, [gold.id]:-10000}))}>
                                 Buy for 10000 {gold.icon}
                             </Button>
                         </td>
                         <td>
-                            <Button style={{backgroundColor:colorByReward(earth.id), borderColor:colorByReward(earth.id), width:"100%", fontWeight:"bold"}}
+                            <Button style={{backgroundColor:colorByReward(earth.id), borderColor:colorByReward(earth.id), width:"100%", fontWeight:"bold", marginBottom: "10px"}}
                                 onClick={()=> props.buyElement(Map({[earth.id]:250, [gold.id]:-10000}))}>
                                 Buy for 10000 {gold.icon}
                             </Button>
                         </td>
                         <td>
-                            <Button style={{backgroundColor:colorByReward(air.id), borderColor:colorByReward(air.id), width:"100%", fontWeight:"bold"}}
+                            <Button style={{backgroundColor:colorByReward(air.id), borderColor:colorByReward(air.id), width:"100%", fontWeight:"bold", marginBottom: "10px"}}
                                 onClick={()=> props.buyElement(Map({[air.id]:250, [gold.id]:-10000}))}>
                                 Buy for 10000 {gold.icon}
+                            </Button>
+                        </td>
+                    </tr>
+                    
+                    <tr style={{paddingTop:"15px"}}>
+                        <td style={{textAlign:"center"}}>
+                            <h1 style={{color:"white", background:"#494949", fontWeight:"bold"}}> 300 {experience.icon}</h1>
+                        </td>
+                        <td style={{textAlign:"center"}}>
+                            <h1 style={{color:"white", background:"#494949", fontWeight:"bold"}}> 300 {experience.icon}</h1>
+                        </td>
+                        <td style={{textAlign:"center"}}>
+                            <h1 style={{color:"white", background:"#494949", fontWeight:"bold"}}> 300 {experience.icon}</h1>
+                        </td>
+                        <td style={{textAlign:"center"}}>
+                            <h1 style={{color:"white", background:"#494949", fontWeight:"bold"}}> 300 {experience.icon}</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <Button style={{backgroundColor:colorByReward(fire.id), borderColor:colorByReward(fire.id), width:"100%", fontWeight:"bold"}}
+                                onClick={()=> props.buyElement(Map({[experience.id]:300, [fire.id]:-100}))}>
+                                Buy for 100 {fire.icon}
+                            </Button>
+                        </td>
+                        <td>
+                            <Button style={{backgroundColor:colorByReward(water.id), borderColor:colorByReward(water.id), width:"100%", fontWeight:"bold"}}
+                                onClick={()=> props.buyElement(Map({[experience.id]:300, [water.id]:-100}))}>
+                                Buy for 100 {water.icon}
+                            </Button>
+                        </td>
+                        <td>
+                            <Button style={{backgroundColor:colorByReward(earth.id), borderColor:colorByReward(earth.id), width:"100%", fontWeight:"bold"}}
+                                onClick={()=> props.buyElement(Map({[experience.id]:300, [earth.id]:-100}))}>
+                                Buy for 100 {earth.icon}
+                            </Button>
+                        </td>
+                        <td>
+                            <Button style={{backgroundColor:colorByReward(air.id), borderColor:colorByReward(air.id), width:"100%", fontWeight:"bold"}}
+                                onClick={()=> props.buyElement(Map({[experience.id]:300, [air.id]:-100}))}>
+                                Buy for 100 {air.icon}
                             </Button>
                         </td>
                     </tr>

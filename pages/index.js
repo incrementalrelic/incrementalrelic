@@ -593,7 +593,6 @@ class App extends React.Component {
                           artifactBonusLedger={this.state.artifactBonusLedger} shopcd={this.state.info.get("shopcd") ?? 0} 
                           aluck={this.state.info.get("shopal") ?? 0} rluck={this.state.info.get("shoprl") ?? 0}
                           aBStatsMult={this.state.info.get("aBStatsMult") ?? 0} maxlevel={this.state.info.get("maxLevel") ?? 0}/>
-                    <br/>
                     <Inventory items={this.state.inventory} ledger={this.state.ledger} boxesState={this.state.boxes} openBox={this.buyItem} 
                           artifactBonusLedger={this.state.artifactBonusLedger} maxlevel={this.state.info.get("maxLevel") ?? 0}
                           boostLedger={this.state.boostLedger} selectRelic={this.selectRelic} relic={this.state.relic} level={level_info.level}
