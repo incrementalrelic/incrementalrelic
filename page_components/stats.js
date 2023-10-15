@@ -49,6 +49,8 @@ function Stats(props) {
     const [radioValue, setRadioValue] = useState({[fire.id]:1,[water.id]:1,[earth.id]:1,[air.id]:1});
     const colorByRewardChecked = (id, checked) => checked ? anotherColorByReward(id) : colorByReward(id)
     const toogleButtonStyle = (id, checked) => ({backgroundColor:colorByRewardChecked(id, checked), borderColor:"#333333", fontWeight:"bold", width:"100px"})
+    const [customRadioValue, setCustomRadioValue] = useState({[fire.id]:1,[water.id]:1,[earth.id]:1,[air.id]:1})
+
 
     return <div>
         <div style={{ width: "100%", height: "160px", background: "#181818", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>
@@ -113,35 +115,54 @@ function Stats(props) {
                             checked={radioValue === 100}
                             onChange={(e) => setRadioValue({...radioValue, [cur.id]: 100})}
                         >x100</ToggleButton>
+                        <ToggleButton style={toogleButtonStyle(cur.id, radioValue[cur.id] === 0)} 
+                            value={0} 
+                            checked={radioValue === 0}
+                            onChange={(e) => setRadioValue({...radioValue, [cur.id]: 0})}
+                        >Custom</ToggleButton>
                     </ToggleButtonGroup>
+                    {radioValue[cur.id] === 0 ? (
+                        <div style={{paddingTop: "5px"}}>
+                            <input
+                                type="number"
+                                placeholder="Custom Value"
+                                min="1"
+                                value={customRadioValue[cur.id] || 1}
+                                onChange={(e) =>
+                                setCustomRadioValue({
+                                    ...customRadioValue,
+                                    [cur.id]: Math.max(e.target.value,1),
+                                })
+                            }
+                        /></div>) : null}
                 </div>
                 <table style={{width: "-webkit-fill-available", height: "150px", background:"#181818"}}>
                     <tbody>
                         <tr>
                             <td style={{width:"50%", textAlign:"center"}}>
                                 <Button style={{backgroundColor:colorByReward(cur.id), borderColor:colorByReward(cur.id), width:"70%", fontWeight:"bold"}}
-                                        onClick={()=>props.buyStat(attack.id, cur.id, radioValue[cur.id])}>
-                                    {radioValue[cur.id]} {attack.icon} for {formatNumber(price(attack.id, cur.id, radioValue[cur.id]),0)} {cur.icon}
+                                        onClick={()=>props.buyStat(attack.id, cur.id, Number(radioValue[cur.id]||customRadioValue[cur.id]))}>
+                                    {Number(radioValue[cur.id]||customRadioValue[cur.id])} {attack.icon} for {formatNumber(price(attack.id, cur.id, Number(radioValue[cur.id]||customRadioValue[cur.id])),0)} {cur.icon}
                                 </Button>
                             </td>
                             <td style={{width:"50%", textAlign:"center"}}>
                                 <Button style={{backgroundColor:colorByReward(cur.id), borderColor:colorByReward(cur.id), width:"70%", fontWeight:"bold"}}
-                                        onClick={()=>props.buyStat(defence.id, cur.id, radioValue[cur.id])}>
-                                    {radioValue[cur.id]} {defence.icon} for {formatNumber(price(defence.id, cur.id, radioValue[cur.id]),0)} {cur.icon}
+                                        onClick={()=>props.buyStat(defence.id, cur.id, Number(radioValue[cur.id]||customRadioValue[cur.id]))}>
+                                    {Number(radioValue[cur.id]||customRadioValue[cur.id])} {defence.icon} for {formatNumber(price(defence.id, cur.id, Number(radioValue[cur.id]||customRadioValue[cur.id])),0)} {cur.icon}
                                 </Button>
                             </td>
                         </tr>
                         <tr>
                             <td style={{width:"50%", textAlign:"center"}}>
                                 <Button style={{backgroundColor:colorByReward(cur.id), borderColor:colorByReward(cur.id), width:"70%", fontWeight:"bold"}}
-                                        onClick={()=>props.buyStat(health.id, cur.id, radioValue[cur.id])}>
-                                    {radioValue[cur.id]} {health.icon} for {formatNumber(price(health.id, cur.id, radioValue[cur.id]),0)} {cur.icon}
+                                        onClick={()=>props.buyStat(health.id, cur.id, Number(radioValue[cur.id]||customRadioValue[cur.id]))}>
+                                    {Number(radioValue[cur.id]||customRadioValue[cur.id])} {health.icon} for {formatNumber(price(health.id, cur.id, Number(radioValue[cur.id]||customRadioValue[cur.id])),0)} {cur.icon}
                                 </Button>
                             </td>
                             <td style={{width:"50%", textAlign:"center"}}>
                                 <Button style={{backgroundColor:colorByReward(cur.id), borderColor:colorByReward(cur.id), width:"70%", fontWeight:"bold"}}
-                                        onClick={()=>props.buyStat(regen.id, cur.id, radioValue[cur.id])}>
-                                    {Number(0.1 * radioValue[cur.id]).toFixed(1)} {regen.icon} for {formatNumber(price(regen.id, cur.id, radioValue[cur.id]),0)} {cur.icon}
+                                        onClick={()=>props.buyStat(regen.id, cur.id, Number(radioValue[cur.id]||customRadioValue[cur.id]))}>
+                                    {Number(0.1 * Number(radioValue[cur.id]||customRadioValue[cur.id])).toFixed(1)} {regen.icon} for {formatNumber(price(regen.id, cur.id, Number(radioValue[cur.id]||customRadioValue[cur.id])),0)} {cur.icon}
                                 </Button>
                             </td>
                         </tr>

@@ -79,11 +79,11 @@ const relicBuffText = (reward, n) => {
         case water.id:
         case earth.id:
         case air.id:
-            return `${Number(0.010*n)} to ${Number(0.030*n)} ${reward.icon}/s for ${n}${soul.icon} and ${25*n}${reward.icon}`
+            return `${Number(Number(0.010*n).toFixed(2))} to ${Number(Number(0.030*n).toFixed(2))} ${reward.icon}/s for ${n}${soul.icon} and ${25*n}${reward.icon}`
         case gold.id:
-            return `${Number(0.080*n)} to ${Number(0.100*n)} ${reward.icon}/s for ${n}${soul.icon} and ${n*1000}${reward.icon}`
+            return `${Number(Number(0.080*n).toFixed(2))} to ${Number(Number(0.100*n).toFixed(2))} ${reward.icon}/s for ${n}${soul.icon} and ${n*1000}${reward.icon}`
         case experience.id:
-            return `${Number(0.75*n)} to ${Number(1.50*n)} ${reward.icon}/s for ${n}${soul.icon} and ${n*10000}${reward.icon}`
+            return `${Number(Number(0.75*n).toFixed(2))} to ${Number(Number(1.50*n).toFixed(2))} ${reward.icon}/s for ${n}${soul.icon} and ${n*10000}${reward.icon}`
         case attack.id:
         case defence.id:
         case health.id:
@@ -124,22 +124,23 @@ function Upgrade(props) {
 
 function BasicUpgrade(props) {
     const [radioValue, setRadioValue] = useState(1);
+    const [customRadioValue, setCustomRadioValue] = useState(1);
     if( props.relic.id === undefined){
         return null
     }
     const relicEffects = props.relic.effect()
     const relicStats = props.relic.statEffect
     const addReward = (reward) => {
-        const res = add(relicBuff(reward, radioValue), relicEffects)
+        const res = add(relicBuff(reward, Number(radioValue || customRadioValue)), relicEffects)
         console.log(res)
         const relic = {...props.relic, id:uuidv4(), effect: () => res}
-        props.upgradeRelic(relic, relicCost(reward, radioValue))
+        props.upgradeRelic(relic, relicCost(reward, Number(radioValue || customRadioValue)))
     }
 
     const addStatReward = (stat) => {
-        const res = add(relicBuff(stat, radioValue), relicStats)
+        const res = add(relicBuff(stat, Number(radioValue || customRadioValue)), relicStats)
         const relic = {...props.relic, id:uuidv4(), statEffect: res}
-        props.upgradeRelic(relic, relicCost(stat, radioValue))
+        props.upgradeRelic(relic, relicCost(stat, Number(radioValue || customRadioValue)))
     }
     const toogleButtonStyle = (checked) => ({backgroundColor: checked?"#005256":"#068488", borderColor:"#181818", fontWeight:"bold", width:"100px"})
 
@@ -171,7 +172,23 @@ function BasicUpgrade(props) {
                         checked={radioValue === 100}
                         onChange={(e) => setRadioValue(100)}
                     >x100</ToggleButton>
-                </ToggleButtonGroup>
+                    <ToggleButton style={toogleButtonStyle(radioValue === 0)} 
+                        value={0} 
+                        checked={radioValue === 0}
+                        onChange={(e) => setRadioValue(0)}
+                    >Custom</ToggleButton>
+            </ToggleButtonGroup>
+            {radioValue === 0 ? (
+                <div style={{paddingTop: "5px"}}>
+                    <input
+                        type="number"
+                        placeholder="Custom Value"
+                        min="1"
+                        value={customRadioValue || 1}
+                        onChange={(e) =>
+                        setCustomRadioValue(Math.max(e.target.value,1))
+                    }
+                /></div>) : null}
             </div>
             <div style={{background:"#181818", paddingTop:"5px", paddingBottom:"5px", display:"block", overflowY:"auto", height:"300px"}}>
                 <table className='invisibleTable' style={{display:"table", width:"100%"}}>
@@ -183,7 +200,7 @@ function BasicUpgrade(props) {
                                 </td>
                                 <td style={{textAlign:"right", paddingRight:"10px"}}>
                                     <Button style={{backgroundColor:colorByReward(currency.id), borderColor:colorByReward(currency.id), width:"70%", fontWeight:"bold"}} onClick={() => addReward(currency)}>
-                                        {relicBuffText(currency, radioValue)}
+                                        {relicBuffText(currency, Number(radioValue || customRadioValue))}
                                     </Button>
                                 </td>
                             </tr>)
@@ -196,7 +213,7 @@ function BasicUpgrade(props) {
                                 </td>
                                 <td style={{textAlign:"right", paddingRight:"10px"}}>
                                     <Button style={{backgroundColor: "white", borderColor:"white", color:"black", width:"70%", fontWeight:"bold"}} onClick={() => addStatReward(stat)}>
-                                        {relicBuffText(stat, radioValue)}
+                                        {relicBuffText(stat, Number(radioValue || customRadioValue))}
                                     </Button>
                                 </td>
                             </tr>)
