@@ -1,8 +1,8 @@
 import React from "react";
 import 'react-circular-progressbar/dist/styles.css';
-import '../pages/styles.css'
+import '../public/styles.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../page_components/components/progressButton.css';
+import '../public/progressButton.css';
 import Head from 'next/head';
 
 const config = require('../next.config')

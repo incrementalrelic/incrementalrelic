@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CryptoJS from "crypto-js";
 import { Map } from "immutable";
 import Button from 'react-bootstrap/Button';
+import { fire, water, earth, air } from "../currencies";
 
 class MyComponent extends Component {
     password = "idle"
@@ -14,7 +15,6 @@ class MyComponent extends Component {
             relic: this.props.saveState.relic.effect !== undefined ? {...this.props.saveState.relic, effectV: this.props.saveState.relic.effect()} : {},
             activeRelic: this.props.saveState.activeRelic.effect !== undefined ? {...this.props.saveState.activeRelic, effectV: this.props.saveState.activeRelic.effect()} : {}
         };
-        console.log(stateToExport)
         const stateToExportJson = JSON.stringify(stateToExport);
         const encryptedState = CryptoJS.AES.encrypt(stateToExportJson, this.password).toString();
         const downloadLink = document.createElement("a");
@@ -66,6 +66,31 @@ class MyComponent extends Component {
         }
     };
 
+    exportAndRestart = () => {
+        this.exportState();
+        this.props.setSaveState( {
+            wallet: new Map({[fire.id]:3, [water.id]:3, [earth.id]:3, [air.id]:3 }),
+            ledger: new Map(),
+            boostLedger: new Map(),
+            artifactBonusLedger: new Map(),
+            statBonusLedger: new Map(),
+            stats: new Map(),
+            artifactStats: new Map(),
+            relicStats: new Map(),
+            missionStats: new Map(),
+            inventory: [],
+            shop: [],
+            relic: { effect: ()=>Map({}), statEffect:Map({}) },
+            activeRelic: { effect: ()=>Map({}), statEffect:Map({}) },
+            messagesShown: new Map(),
+            info: new Map(),
+            boxes: new Map(),
+            skills: new Map(),
+            prestigeModal: false,
+            loading: false,
+          });
+    }
+
     render() {
         return (
             <div style={{paddingLeft:"10px", fontWeight:"bold"}}>
@@ -82,6 +107,12 @@ class MyComponent extends Component {
                         onClick={this.importState}>
                             Import save
                     </Button>
+                    <Button style={{backgroundColor:"#b90d0a", borderColor:"#b90d0a", fontWeight:"bold", marginLeft:"10px"}}
+                        onClick={this.exportAndRestart}>
+                            Export save and restart game
+                    </Button>
+                </div>
+                <div style={{color:"white", paddingTop:"25px"}}>
                 </div>
                 <div style={{color:"white", paddingTop:"45px"}}>
                     <p>Consider joining the discord: <a style={{color:"white"}} href="https://discord.gg/7BZfa3QZc7">https://discord.gg/7BZfa3QZc7</a></p> 

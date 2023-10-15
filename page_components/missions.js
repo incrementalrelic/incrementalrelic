@@ -1,6 +1,7 @@
 import { Map } from "immutable";
 import { add, buy, inTheBlack } from "merchant.js";
 import { experience, gold, elements, fire, water, earth, air } from "./currencies";
+import { formatNumber } from "./utils";
 
 const colorByMissionReward = (reward) => {
     switch (reward) {
@@ -27,7 +28,6 @@ const health = {id: "hp", icon: "❤️", name: "HP"};
 const regen = {id: "regen", icon: "💖", name: "REG"};
 
 const colorByMission = (mission) => {
-    console.log("GERE")
     return mission.level >= 35 ? "#dddddd" : colorByMissionReward(mission.cost_types[0])
 }
 
@@ -63,10 +63,10 @@ function format_reward(use_cost, rewards, id){
                 str = str + (item.odd*100) + "% "
             }
             if(item.quantity_min != item.quantity_max){
-                str = str + Number(Number(item.quantity_min).toFixed(2)) + "-" + Number(Number(item.quantity_max).toFixed(2)) + " " + item.type.icon
+                str = str + formatNumber(Number(item.quantity_min),2,true) + "-" + formatNumber(Number(item.quantity_max),2,true) + " " + item.type.icon
             }
             else{
-                str = str + Number(Number(item.quantity_min).toFixed(2)) + " " + item.type.icon
+                str = str + formatNumber(Number(item.quantity_min),2,true) + " " + item.type.icon
             }
         }
         return str

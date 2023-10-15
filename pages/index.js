@@ -17,6 +17,7 @@ import { MemoUpgrade as Upgrade, MemoBasicUpgrade as BasicUpgrade } from "../pag
 import PrestigeModal from "../page_components/components/prestigeModal";
 import { Story, messages, MessageWrapper  } from "../page_components/components/levelUpMessage"
 import Save from "../page_components/components/save"
+import { formatNumber } from "../page_components/utils";
 
 class App extends React.Component {
   constructor(props) {
@@ -187,8 +188,6 @@ class App extends React.Component {
   }
 
   updateShop(shop){
-    console.log("here")
-    console.log(shop)
     this.setState({
       shop,
     })
@@ -381,12 +380,12 @@ class App extends React.Component {
   }
 
   prestigeConfirmed(){
-    const relic = this.state.relic.type !== undefined ? this.state.relic : {}
+    const relic = this.state.relic.type !== undefined ? this.state.relic : { effect: ()=>Map({}), statEffect:Map({}) }
     const exp = Number(relic.exp ?? 0) * this.state.wallet.get(experience.id) / 100
     var level_info = get_level_info(this.state.wallet.get(experience.id))
     var level = level_info.level;
     const inventory = relic.type !== undefined ? [ relic ] : []
-    const soulVal = (this.state.wallet.get(soul.id) ?? 0) + Number(Number(level*(1+Number(this.state.info.get("soulBonus")??0)*0.05)*(1+Number(this.state.artifactBonusLedger.get(soul.id)??0))).toFixed(2))
+    const soulVal = (this.state.wallet.get(soul.id) ?? 0) + Number(Number((level ** 1.35)*(1+Number(this.state.info.get("soulBonus")??0)*0.05)*(1+Number(this.state.artifactBonusLedger.get(soul.id)??0))).toFixed(2))
 
     let boostLedger = Map()
     if(relic.effect != undefined && relic.effect().get("mission") !== undefined){
@@ -535,15 +534,15 @@ class App extends React.Component {
             { currenciesShow.map((currency) =>
               <th key={currency.id} style={{minWidth:88/currenciesShow.length+"%", width:88/currenciesShow.length+"%", whiteSpace:"nowrap", color:"white", overflow:"hidden", textOverflow:"ellipsis", position: "relative"}}>
                 <h3>{currency.icon}
-                  { Number(this.state.wallet.get(currency.id) || 0) >= 10000 ? Number(this.state.wallet.get(currency.id) || 0).toExponential(2) : Number(this.state.wallet.get(currency.id) || 0).toFixed(2)}
+                  { formatNumber(this.state.wallet.get(currency.id)) }
                 </h3>
                 {(this.state.ledger.get(currency.id) != 0 && this.state.ledger.get(currency.id)  &&
-                <a key={currency.id} style={{color: this.state.ledger.get(currency.id)>0 ? "green": "red", marginLeft:"50px", position:"absolute", top:"50%", transform:"translateY(50%)" }}>{Number(this.state.ledger.get(currency.id)*5 || 0).toFixed(3)} {currency.icon} /s </a>)}
+                <a key={currency.id} style={{color: this.state.ledger.get(currency.id)>0 ? "green": "red", marginLeft:"50px", position:"absolute", top:"50%", transform:"translateY(50%)" }}>{formatNumber(Number(this.state.ledger.get(currency.id)*5 || 0),3)} {currency.icon} /s </a>)}
               </th>)
             }
             { level_info.current_exp !== undefined && 
               <th>
-                <div onClick={()=>this.showPrestige(level_info.level)} style={{ width: 150, height: 150, marginTop: 5 , marginBottom: 5 }}>
+                <div onClick={()=>this.showPrestige(level_info.level)} style={{ width: 150, height: 150, marginTop: 5 , marginBottom: 5, cursor: level_info.level >= 20 ?"pointer" : "default"}}>
                   <CircularProgressbarWithChildren 
                     value={percentage} 
                     background
@@ -562,7 +561,7 @@ class App extends React.Component {
                       <strong>Level {level_info.level}</strong>
                     </div>
                     <div style={{ fontSize: 12, marginTop: -5 }}>
-                      {level_info.current_exp >= 10000 ? Number(level_info.current_exp).toExponential(2) :level_info.current_exp} / {level_info.next_level_exp >= 10000 ? Number(level_info.next_level_exp).toExponential(2) :level_info.next_level_exp} ⭐
+                      {formatNumber(level_info.current_exp,0,true)} / {formatNumber(level_info.next_level_exp,0,true)} ⭐
                     </div>
                     {level_info.level>=18 &&
                       <div style={{ fontSize: 12, marginTop: -5 , fontWeight: "bold"}}>
@@ -592,6 +591,7 @@ class App extends React.Component {
                     <Shop items={this.state.shop} buy={this.buyItem} updateShop={this.updateShop} level={level_info.level} 
                           artifactBonusLedger={this.state.artifactBonusLedger} shopcd={this.state.info.get("shopcd") ?? 0} 
                           aluck={this.state.info.get("shopal") ?? 0} rluck={this.state.info.get("shoprl") ?? 0}
+                          refreshs={this.state.info.get("shoprefr") ?? 0}
                           aBStatsMult={this.state.info.get("aBStatsMult") ?? 0} maxlevel={this.state.info.get("maxLevel") ?? 0}/>
                     <Inventory items={this.state.inventory} ledger={this.state.ledger} boxesState={this.state.boxes} openBox={this.buyItem} 
                           artifactBonusLedger={this.state.artifactBonusLedger} maxlevel={this.state.info.get("maxLevel") ?? 0}

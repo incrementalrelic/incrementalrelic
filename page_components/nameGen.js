@@ -184,13 +184,10 @@ export const itemName = (rewardD) => {
     var keyElemNames = Object.keys(rewardD).filter(x => rewardD[x] > 0).concat(keys).map(x => elemDictionary[x] != undefined ? x : undefined).filter(x => x != undefined && x != null)
     var checked = true
     if(elemNames.length){
-        console.log(1)
         fnArray.push(x => getRandomFromArray(getRandomFromArray(elemNames)))
         checked = false
     }
     if (keyElemNames.length){
-        console.log(2)
-        console.log(keyElemNames)
         fnArray.push(x => getRandomFromArray(elemDictionary[getRandomFromArray(keyElemNames)]))
         fnArray.push(x => getRandomFromArray(keyElemNames) + " " + getRandomFromArray(weapons))
         fnArray.push(x => getRandomFromArray(keyElemNames) + " " + getRandomFromArray(stuff))
@@ -203,7 +200,6 @@ export const itemName = (rewardD) => {
         checked = false
     }
     if(checked){
-        console.log(3)
         fnArray.push(x => getRandomFromArray(getRandomFromArray(Object.keys(rewardD)
             .map(x => nonElemDictionary[x]).filter(x => x != undefined && x != null))))
     }
@@ -215,7 +211,6 @@ export const itemName = (rewardD) => {
     fnArray.push(x => "The " + enemyNameWithoutPrefix() + "'s " + getRandomFromArray(stuff))
     const fn = getRandomFromArray(fnArray) 
     const name = fn();
-    console.log(name)
     return capitalizeFirstLetter(name)
 }
 

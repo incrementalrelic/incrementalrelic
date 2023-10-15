@@ -11,6 +11,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import { missions, colorByMission } from "./missions";
 import { boxes, Box, BoxModal } from './box';
+import { formatNumber } from './utils';
 
 const config = require('../next.config')
 
@@ -41,7 +42,9 @@ const Background = ({children , item, isShop, origin}) => (
 );
 
 function Shop(props) {
-    const [show, setShow] = useState(false);
+    const maxRefreshs = 5 + props.refreshs;
+    const [refreshs, setRefreshs] = useState(maxRefreshs);
+    const [interva, setInterva] = useState(null);
     const gen_item = ()=> generate_item(props.level, {aBStatsMult:props.aBStatsMult}, props.aluck, props.rluck)
     const gen_items = () => [gen_item(), gen_item(), gen_item(), gen_item(), gen_item()];
     const gen_items_first = () => [generate_artifact(props.level,0,1), generate_artifact(props.level,0,2),generate_artifact(props.level,0,2),
@@ -60,32 +63,70 @@ function Shop(props) {
       }
     }, [props.items]);
 
+    useEffect(() => {
+      if(refreshs>maxRefreshs){
+        setRefreshs(maxRefreshs)
+        return;
+      }
+      var newRefresh = refreshs
+      clearInterval(interva)
+      var i = setInterval(
+          () => {
+            newRefresh = newRefresh+1
+            if(newRefresh<=maxRefreshs){
+              setTimeout( () => setRefreshs(newRefresh), 250)
+              if(newRefresh==maxRefreshs){
+                clearInterval(i)
+              }
+            }
+            else{
+              clearInterval(i)
+            }
+          },
+          (15-props.shopcd)*1000
+      );
+      setInterva(i)
+    }, [props.refreshs]);
+
     if(!(props.items.length != 0)){
       props.updateShop(vItems)
     }
 
     const onClickHandler = () => {
+      var newRefresh = refreshs-1
       let aItems = gen_items()
-      setShow(true)
+      setRefreshs(newRefresh)
       setItems(aItems)
       props.updateShop(aItems)
-      setTimeout(
+      clearInterval(interva)
+      var i = setInterval(
           () => {
-            setShow(false)
+            newRefresh = newRefresh+1
+            if(newRefresh<=maxRefreshs){
+              setTimeout( () => setRefreshs(newRefresh), 250)
+              if(newRefresh==maxRefreshs){
+                clearInterval(i)
+              }
+            }
+            else{
+              clearInterval(i)
+            }
           },
           (15-props.shopcd)*1000
       );
+      setInterva(i)
   };
+  
 
   return (
-    <div style={{marginBottom : "30px"}}>
+    <div style={{marginBottom : "20px"}}>
       <div className="row">
         <div className='column'>
           <h1 style={{color:"white", fontWeight: "bold"}}>Shop</h1>
         </div>
         <div className='column'>
-          <ReactiveButton style={{ width: "100%", marginTop:"7px", fontWeight: "bold"}} height= "inherit" buttonState={show ? "loading" : "idle"} 
-                              loadDuration={15-props.shopcd} onClick={ (e) => onClickHandler()} idleText={"Refresh Shop"}/>
+          <ReactiveButton style={{ width: "100%", marginTop:"7px", fontWeight: "bold"}} height= "inherit" buttonState={refreshs<1 ? "loading" : refreshs===maxRefreshs? "idle": "charging"+refreshs} 
+                              loadDuration={15-props.shopcd} onClick={ (e) => onClickHandler()} idleText={"Refresh Shop ("+refreshs+"/"+maxRefreshs+")"}/>
         </div>
       </div>
       <table style={{ width: "100%", height: "110px"}}>  
@@ -124,7 +165,7 @@ function Shop(props) {
                         )}
                         {item.effect().get("artifactBonus") && Object.entries(item.effect().get("artifactBonus")).map(([key, value]) =>
                           currencies.some(e=> e.id== key) ?
-                          <p key={key} style={{color: colorByRarity(4)}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByReward(key)}}>{currencyById(key).icon} artifacts</span></p>
+                          <p key={key} style={{color: colorByRarity(4)}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByReward(key)}}>{currencyById(key).icon} artifacts and relics</span></p>
                           :soul.id == key ?
                           <p key={key} style={{color:colorByRarity(4)}}>{Number(value*100).toFixed(0)}% boost for {soul.icon} on reincarnation</p>
                           :null
@@ -286,7 +327,7 @@ function Inventory(props) {
         <div style={{ width: "100%", height: "250px", overflowY: "auto", display: "block", background: "#181818"}}>
             {currencies.map((currency) =>
               props.ledger.get(currency.id) != 0 && props.ledger.get(currency.id)  &&
-              <p key={currency.id} style={{color: props.ledger.get(currency.id)>0 ? "green": "red", paddingLeft:"10px", fontWeight:"bold"}}>{Number(props.ledger.get(currency.id)*5 || 0).toFixed(3)} {currency.icon} /s </p>)
+              <p key={currency.id} style={{color: props.ledger.get(currency.id)>0 ? "green": "red", paddingLeft:"10px", fontWeight:"bold"}}>{formatNumber(Number(props.ledger.get(currency.id)*5 || 0),3)} {currency.icon} /s </p>)
             }
         </div>
       </Tab>
@@ -294,7 +335,7 @@ function Inventory(props) {
         <div style={{ width: "100%", height: "250px", overflowY: "auto", display: "block", background: "#181818"}}>
           {props.artifactBonusLedger.entrySeq().sort(function([key1, value1], [key2, value2]) { return !isNaN(key2) && isNaN(key1) ? -1 : value2 - value1 }).map(([key, value]) =>
             key !== soul.id ?
-              <p key={key} style={{color: colorByRarity(4), paddingLeft:"10px", fontWeight:"bold"}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByReward(key)}}>{currencyById(key).icon} artifacts</span></p>
+              <p key={key} style={{color: colorByRarity(4), paddingLeft:"10px", fontWeight:"bold"}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByReward(key)}}>{currencyById(key).icon} artifacts and relics</span></p>
               : <p key={key} style={{color: colorByRarity(4), paddingLeft:"10px", fontWeight:"bold"}}>{Number(value*100).toFixed(0)}% boost for {soul.icon} on reincarnation</p>)
           }
           {props.boostLedger.entrySeq().sort(function([key1, value1], [key2, value2]) { return !isNaN(key2) && isNaN(key1) ? -1 : value2 - value1 }).map(([key, value]) =>
@@ -318,7 +359,7 @@ function Item (props) {
   var {isShop, item, onClick, origin, firstShop} = props
   return (
     <Background item={item} isShop={isShop} origin={origin}>
-      <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${config.basePath+item.src})`}}>
+      <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${config.basePath+item.src})`, cursor: (isShop && !item.bought || !props.isShop && !props.using && item.type === RelicType) ?"pointer" : "default"}}>
         <div style={{width: 100, height:100, backgroundImage: props.isShop && item.bought ? `url(${config.basePath+"/s.png"})` : !props.isShop && props.using ? `url(${config.basePath+"/u.png"})` : `url(${config.basePath+"/n.png"})`}}
           onClick={() => onClick(item)} >
           <img
@@ -367,7 +408,7 @@ function ItemTd (props) {
             )}
             {item.effect().get("artifactBonus") && Object.entries(item.effect().get("artifactBonus")).map(([key, value]) =>
               currencies.some(e=> e.id== key) ?
-              <p key={key} style={{color: colorByRarity(4)}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByReward(key)}}>{currencyById(key).icon} artifacts</span></p>
+              <p key={key} style={{color: colorByRarity(4)}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByReward(key)}}>{currencyById(key).icon} artifacts and relics</span></p>
               :soul.id == key ?
               <p key={key} style={{color:colorByRarity(4)}}>{Number(value*100).toFixed(0)}% boost for {soul.icon} on reincarnation</p>
               : null

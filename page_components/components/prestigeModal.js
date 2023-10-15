@@ -78,8 +78,8 @@ export default function PrestigeModal(props) {
 
             <p style={{marginTop: "10px"}}>Relic changes and gains</p>
             <div style={{ width: "100%", height: "150px", overflowY: "auto", display: "block", background: "#181818"}}>
-              <p style={{color: "green", paddingLeft:"10px", fontWeight:"bold"}}>+{Number(Number(props.level*(1+soulBonus*0.05)*(1+Number(props.artifactBonusLedger.get(soul.id)??0))).toFixed(2))} {soul.icon}
-                 ({Number(Number(1*(1+soulBonus*0.05)*(1+Number(props.artifactBonusLedger.get(soul.id)??0))).toFixed(2))} per level)</p>
+              <p style={{color: "green", paddingLeft:"10px", fontWeight:"bold"}}>+{Number(Number((props.level**1.35)*(1+soulBonus*0.05)*(1+Number(props.artifactBonusLedger.get(soul.id)??0))).toFixed(2))} {soul.icon + " "}
+                { (soulBonus+ Number(props.artifactBonusLedger.get(soul.id)??0) === 0) ? "" : `(${Number(Number((props.level**1.35)*((1+soulBonus*0.05)*(1+Number(props.artifactBonusLedger.get(soul.id)??0))-1)).toFixed(2))} ${soul.icon} are bonus)`}</p>
               {currencies.map((currency) =>
                 diff.get(currency.id) != 0 && diff.get(currency.id) &&
                 <p key={currency.id} style={{color: diff.get(currency.id)>0 ? "green": "red", paddingLeft:"10px", fontWeight:"bold"}}>{diff.get(currency.id)>0 ? "+":""}{Number(diff.get(currency.id) || 0).toFixed(3)} {currency.icon} /s </p>)
@@ -93,7 +93,7 @@ export default function PrestigeModal(props) {
               {diffArtifactBoost.entrySeq().sort(function([key1, value1], [key2, value2]) { return !isNaN(key2) && isNaN(key1) ? -1 : value2 - value1 }).map(([key, value]) =>
                 value===0? null
                 :currencies.some(e=> e.id== key) ?
-                <p key={key} style={{color: value>0 ? "green": "red", paddingLeft:"10px", fontWeight:"bold"}}>{value>0 ? "+":""}{Number(value*100).toFixed(0)}% boost for {currencyById(key).icon} artifacts</p>
+                <p key={key} style={{color: value>0 ? "green": "red", paddingLeft:"10px", fontWeight:"bold"}}>{value>0 ? "+":""}{Number(value*100).toFixed(0)}% boost for {currencyById(key).icon} artifacts and relics</p>
                 :soul.id == key ?
                 <p key={key} style={{color: value>0 ? "green": "red", paddingLeft:"10px", fontWeight:"bold"}}>{value>0 ? "+":""}{Number(value*100).toFixed(0)}% boost for {soul.icon} on reincarnation</p>
                 : null)
@@ -129,7 +129,7 @@ export default function PrestigeModal(props) {
             {artifactBoostLost.entrySeq().sort(function([key1, value1], [key2, value2]) { return !isNaN(key2) && isNaN(key1) ? -1 : value2 - value1 }).map(([key, value]) =>
               Number(value*100).toFixed(0)>=0? null
               :currencies.some(e=> e.id== key) ?
-              <p key={key} style={{color: "red", paddingLeft:"10px", fontWeight:"bold"}}>{Number(value*100).toFixed(0)}% boost for {currencyById(key).icon} artifacts</p>
+              <p key={key} style={{color: "red", paddingLeft:"10px", fontWeight:"bold"}}>{Number(value*100).toFixed(0)}% boost for {currencyById(key).icon} artifacts and relics</p>
               : soul.id == key ?
               <p key={key} style={{color: "red", paddingLeft:"10px", fontWeight:"bold"}}>{Number(value*100).toFixed(0)}% boost for {soul.icon} on reincarnation</p>
               : null)

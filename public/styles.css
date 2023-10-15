@@ -68,6 +68,17 @@ table.invisibleTable{
     background-color: #ef0a19;
 }
 
+.progress.healthDead{
+    background-color: #ffbcbc !important;
+}
+
+
+.progress.healthDead .progress-bar {
+    float: right;
+    background-color: #6c484b;
+}
+
+
 html {
     scrollbar-face-color: #646464;
     scrollbar-base-color: #646464;

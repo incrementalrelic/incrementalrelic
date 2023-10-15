@@ -474,7 +474,7 @@ function SoulShop(props) {
 
 
 function SoulEnhancement(props) {
-    const cdPrice = [1,2,5,10,25,50,100,200,250,500]
+    const cdPrice = [1,2,5,10,25,50,100,200,500,1000]
 
     return <div style={{background:"#181818", marginTop:"20px", paddingTop:"10px", paddingBottom:"10px", height:"420px", display:"block", overflowY:"auto"}}>
         <table className='invisibleTable' style={{display:"table", width:"100%"}}>
@@ -552,12 +552,25 @@ function SoulEnhancement(props) {
                         </p>
                     </td>
                 </tr>
+                <tr key="shoprefr">
+                    <td>
+                        <p style={{color: "white", paddingLeft:"10px", fontWeight:"bold"}}>
+                            Shop Max Refreshs: {props.info.get("shoprefr") === undefined ? 0 : props.info.get("shoprefr") } refreshs (Max:10)
+                        </p>
+                    </td>
+                    <td style={{textAlign:"right", paddingRight:"10px"}}>
+                        <Button style={{backgroundColor:"#6064dc", borderColor:"#6064dc", width:"100%", fontWeight:"bold"}} disabled={Number(props.info.get("shoprefr") ?? 0)>=10}
+                            onClick={()=>props.buyEnhancement("shoprefr", Map({[soul.id]:-cdPrice[Number(props.info.get("shoprefr") ?? 0)]}))}>
+                            {Number(props.info.get("shoprefr") ?? 0)>=10 ? "Purchased" : "+1 shop max refresh " + cdPrice[Number(props.info.get("shoprefr") ?? 0)] + " "+ soul.icon}
+                        </Button>
+                    </td>
+                </tr>
                 { props.maxlevel < 30 ? null : props.maxlevel < 35 ? <tr><td colSpan={2}><p style={{padding:"10px",color:"white", background:"#494949", fontWeight:"bold"}}> 🔒 Reach level 35 to unlock 🔒</p></td></tr>
                     : currencies.map((currency) =>
                     <tr key={currency.id}>
                         <td>
                             <p style={{color: "white", paddingLeft:"10px", fontWeight:"bold"}}>
-                                Boost {currency.icon} artifacts: {props.info.get(currency.id+"bst") === undefined ? 0 : props.info.get(currency.id+"bst")*3}% applied on reincarnation (Max:30%)
+                                Boost {currency.icon} artifacts and relics: {props.info.get(currency.id+"bst") === undefined ? 0 : props.info.get(currency.id+"bst")*3}% applied on reincarnation (Max:30%)
                             </p>
                         </td>
                         <td style={{textAlign:"right", paddingRight:"10px"}}>

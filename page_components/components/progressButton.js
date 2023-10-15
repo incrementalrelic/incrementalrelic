@@ -60,6 +60,8 @@ const ReactiveButton = (props) => {
 
   const idleText = props.idleText ? props.idleText : 'Click Me';
 
+  let [translate, setTranslate] = useState(0);
+  let [shouldTransition, setShouldTransition] = useState(true);
   const [clicked, setClicked ] =  useState(false);
   const [seconds, setSeconds ] =  useState(props.loadDuration-1);
 
@@ -107,6 +109,8 @@ const ReactiveButton = (props) => {
 
   const onClickHandler = () => {
     setClicked(true)
+    setShouldTransition(false);
+    setTranslate(-100);
     if (typeof props.onClick !== 'undefined') {
       props.onClick();
     }
@@ -114,11 +118,16 @@ const ReactiveButton = (props) => {
 
   useEffect(() => {
     if (typeof props.buttonState !== 'undefined') {
-      setButtonState(props.buttonState);
-      if (props.buttonState === 'loading'){
+      if (props.buttonState === 'loading' || props.buttonState.startsWith("charging") ){
         setSeconds(props.loadDuration-1);
+        setButtonState(props.buttonState);
+        setShouldTransition(false); 
+        setTranslate(-100);
       }
-      if (props.buttonState === 'success' || props.buttonState === 'error') {
+      else if (props.buttonState === 'idle' ){
+        setButtonState(props.buttonState); 
+      }
+      else if (props.buttonState === 'success' || props.buttonState === 'error') {
         setTimeout(
           () => {
             setButtonState('idle');
@@ -129,8 +138,15 @@ const ReactiveButton = (props) => {
     }
   }, [props.buttonState, props.messageDuration]);
 
+  useEffect(() => {
+    if (translate === -100) {
+      setTimeout(() => {setShouldTransition(true);
+      setTranslate(0);},200)
+    }
+  }, [translate]);
+
   const getButtonText = (currentButtonState) => {
-    if (currentButtonState === 'idle') {
+    if (currentButtonState === 'idle' || currentButtonState.startsWith("charging")) {
       return idleText;
     } else if (currentButtonState === 'loading') {
       return <React.Fragment>
@@ -154,13 +170,8 @@ const ReactiveButton = (props) => {
       );
     }
   };
-
-  const animationCss = {
-    transform: "translateX(0%)",
-    transition: `transform ${props.loadDuration ?? 3}s cubic-bezier(0.59, 0.01, 0.41, 0.99)`
-  }
-
-  return (
+  
+  return ( 
     <React.Fragment>
       <span
         className={`reactive-btn-wrapper ${size}${props.block ? ' block' : ''}`}
@@ -168,7 +179,7 @@ const ReactiveButton = (props) => {
       >
         <button
           ref={typeof props.buttonRef !== 'undefined' ? props.buttonRef : null}
-          disabled={buttonState !== 'idle' || props.disabled}
+          disabled={(buttonState !== 'idle' && !buttonState.startsWith("charging")) || props.disabled}
           data-button-state={buttonState}
           type={type}
           className={`${className} ${color}${outline ? ' outline' : ''}${
@@ -179,7 +190,14 @@ const ReactiveButton = (props) => {
           onClick={onClickHandler}
           style={style}
         >
-          <span className="progress" style={ buttonState !== 'idle' ? animationCss : {}}></span>
+              <span className="progress" style={ buttonState !== 'idle' ? {
+                  transform: `translateX(${translate}%)`,
+                  transition: shouldTransition ? `transform ${props.loadDuration ?? 3}s cubic-bezier(0.59, 0.01, 0.41, 0.99)` : "transform 0.15s ease"
+                }
+              : {
+                transform: "translateX(-100%)",
+                transition: "transform 0.15s ease"
+              }}></span>
           <span className="content">
             <React.Fragment>{getButtonText(buttonState)}</React.Fragment>
           </span>

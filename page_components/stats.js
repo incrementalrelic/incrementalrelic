@@ -12,6 +12,7 @@ import { Map } from "immutable";
 import { BoxToolTip, wooden, steel, golden, platinum, sapphire, diamond } from './box';
 import { add } from "merchant.js";
 import { enemyName } from "./nameGen";
+import { formatNumber } from "../page_components/utils";
 
 export const attack = {id: "atk", icon: "⚔️", name: "ATK"};
 export const defence = {id: "def", icon: "🛡️", name: "DEF"};
@@ -58,7 +59,7 @@ function Stats(props) {
                             <tr>
                                 <td style={{width:"200px"}}>
                                     <p style={{color: "white", paddingLeft: "10px", fontWeight:"bold", width:"100%"}}>{
-                                        Number(Number(stats.get(stat.id) || 0).toFixed(1))} {stat.icon} {"("+stat.name+")"}
+                                        formatNumber(Number(stats.get(stat.id) || 0),1)} {stat.icon} {"("+stat.name+")"}
                                     </p>
                                 </td>
                                 <td style={{width:"80%"}} data-tip data-for={stat.id}>
@@ -67,11 +68,11 @@ function Stats(props) {
                                             {elements.map(cur =>
                                                 (<span key={cur.id}><span style={{color:colorByReward(cur.id)}}>{current(stat.id, cur.id)}</span> + </span>))
                                             }
-                                            <span style={{color:"#e5e5e5"}}>{Number(Number(props.artifactStats.get(stat.id) ?? 0).toFixed(1))}</span> + 
-                                            <span style={{color:"#ED553B"}}>{ Number(Number(props.missionStats.get(stat.id) ?? 0).toFixed(1))}</span> + 
-                                            <span style={{color:"#987cbc"}}>{ Number(Number(buffedStats.get(stat.id) ?? 0).toFixed(1))}</span> + 
-                                            <span style={{color:"#DB9D00"}}>{ Number(Number(props.relicStats.get(stat.id) ?? 0).toFixed(1))}</span> + 
-                                            <span style={{color:"#987cbc"}}>{ Number(Number(relicBuffedStats.get(stat.id) ?? 0).toFixed(1))}</span>
+                                            <span style={{color:"#e5e5e5"}}>{ formatNumber(Number(props.artifactStats.get(stat.id) ?? 0),1,true)}</span> + 
+                                            <span style={{color:"#ED553B"}}>{ formatNumber(Number(props.missionStats.get(stat.id) ?? 0),1,true)}</span> + 
+                                            <span style={{color:"#987cbc"}}>{ formatNumber(Number(buffedStats.get(stat.id) ?? 0),1,true)}</span> + 
+                                            <span style={{color:"#DB9D00"}}>{ formatNumber(Number(props.relicStats.get(stat.id) ?? 0),1,true)}</span> + 
+                                            <span style={{color:"#987cbc"}}>{ formatNumber(Number(relicBuffedStats.get(stat.id) ?? 0),1,true)}</span>
                                         {" )"}
                                     </p>
                                 </td>
@@ -83,11 +84,11 @@ function Stats(props) {
                             {elements.map(cur =>
                                 (<p key={cur.id} style={{color:colorByReward(cur.id)}}>{current(stat.id, cur.id)} {stat.icon} from {cur.icon} upgrades</p>))
                             }
-                            <p style={{color:"#e5e5e5"}}>{Number(Number(props.artifactStats.get(stat.id) ?? 0).toFixed(1))} {stat.icon} from Artifacts</p>
-                            <p style={{color:"#ED553B"}}>{Number(Number(props.missionStats.get(stat.id) ?? 0).toFixed(1))} {stat.icon} from Actions</p>
-                            <p style={{color:"#987cbc"}}>{Number(Number(buffedStats.get(stat.id) ?? 0).toFixed(1))} {stat.icon} from Boosts</p>
-                            <p style={{color:"#DB9D00"}}>{Number(Number(props.relicStats.get(stat.id) ?? 0).toFixed(1))} {stat.icon} from Relic</p>
-                            <p style={{color:"#987cbc"}}>{Number(Number(relicBuffedStats.get(stat.id) ?? 0).toFixed(1))} {stat.icon} from Relic Bonus</p>
+                            <p style={{color:"#e5e5e5"}}>{formatNumber(Number(props.artifactStats.get(stat.id) ?? 0),1,true)} {stat.icon} from Artifacts</p>
+                            <p style={{color:"#ED553B"}}>{formatNumber(Number(props.missionStats.get(stat.id) ?? 0),1,true)} {stat.icon} from Actions</p>
+                            <p style={{color:"#987cbc"}}>{formatNumber(Number(buffedStats.get(stat.id) ?? 0),1,true)} {stat.icon} from Boosts</p>
+                            <p style={{color:"#DB9D00"}}>{formatNumber(Number(props.relicStats.get(stat.id) ?? 0),1,true)} {stat.icon} from Relic</p>
+                            <p style={{color:"#987cbc"}}>{formatNumber(Number(relicBuffedStats.get(stat.id) ?? 0),1,true)} {stat.icon} from Relic Bonus</p>
                         </div>
                     </ReactTooltip>
                 </div>
@@ -120,13 +121,13 @@ function Stats(props) {
                             <td style={{width:"50%", textAlign:"center"}}>
                                 <Button style={{backgroundColor:colorByReward(cur.id), borderColor:colorByReward(cur.id), width:"70%", fontWeight:"bold"}}
                                         onClick={()=>props.buyStat(attack.id, cur.id, radioValue[cur.id])}>
-                                    {radioValue[cur.id]} {attack.icon} for {price(attack.id, cur.id, radioValue[cur.id])} {cur.icon}
+                                    {radioValue[cur.id]} {attack.icon} for {formatNumber(price(attack.id, cur.id, radioValue[cur.id]),0)} {cur.icon}
                                 </Button>
                             </td>
                             <td style={{width:"50%", textAlign:"center"}}>
                                 <Button style={{backgroundColor:colorByReward(cur.id), borderColor:colorByReward(cur.id), width:"70%", fontWeight:"bold"}}
                                         onClick={()=>props.buyStat(defence.id, cur.id, radioValue[cur.id])}>
-                                    {radioValue[cur.id]} {defence.icon} for {price(defence.id, cur.id, radioValue[cur.id])} {cur.icon}
+                                    {radioValue[cur.id]} {defence.icon} for {formatNumber(price(defence.id, cur.id, radioValue[cur.id]),0)} {cur.icon}
                                 </Button>
                             </td>
                         </tr>
@@ -134,13 +135,13 @@ function Stats(props) {
                             <td style={{width:"50%", textAlign:"center"}}>
                                 <Button style={{backgroundColor:colorByReward(cur.id), borderColor:colorByReward(cur.id), width:"70%", fontWeight:"bold"}}
                                         onClick={()=>props.buyStat(health.id, cur.id, radioValue[cur.id])}>
-                                    {radioValue[cur.id]} {health.icon} for {price(health.id, cur.id, radioValue[cur.id])} {cur.icon}
+                                    {radioValue[cur.id]} {health.icon} for {formatNumber(price(health.id, cur.id, radioValue[cur.id]),0)} {cur.icon}
                                 </Button>
                             </td>
                             <td style={{width:"50%", textAlign:"center"}}>
                                 <Button style={{backgroundColor:colorByReward(cur.id), borderColor:colorByReward(cur.id), width:"70%", fontWeight:"bold"}}
                                         onClick={()=>props.buyStat(regen.id, cur.id, radioValue[cur.id])}>
-                                    {Number(0.1 * radioValue[cur.id]).toFixed(1)} {regen.icon} for {price(regen.id, cur.id, radioValue[cur.id])} {cur.icon}
+                                    {Number(0.1 * radioValue[cur.id]).toFixed(1)} {regen.icon} for {formatNumber(price(regen.id, cur.id, radioValue[cur.id]),0)} {cur.icon}
                                 </Button>
                             </td>
                         </tr>
@@ -307,7 +308,6 @@ function Fight(props) {
             }
         }
         else{
-            props.addPlayerLog(`You heal for ${numberToFixed(stats.get(regen.id),1)}.`)
             if(ehp<=0){ 
                 setEnemy(enemy.set("name", rf()))
                 setEhp(enemy.get(health.id))
@@ -319,12 +319,15 @@ function Fight(props) {
                 setEhp(newEhp)
                 setEhpPercentage(newEhp*100 / enemy.get(health.id))
             }
-            const newHp = numberToFixed(Math.min(stats.get(health.id), hp+stats.get(regen.id)),1)
-            setHp(newHp)
-            setHpPercentage(newHp*100 / numberToFixed(stats.get(health.id),1))
-            if(newHp === numberToFixed(stats.get(health.id),1) && newHp > 0){
+            if(hp === numberToFixed(stats.get(health.id),1) && hp > 0){
                 props.addInfoLog(`You have recovered.`)
                 setAlive(true)
+            }
+            else{
+                props.addPlayerLog(`You heal for ${numberToFixed(stats.get(regen.id),1)}.`)
+                const newHp = numberToFixed(Math.min(stats.get(health.id), hp+stats.get(regen.id)),1)
+                setHp(newHp)
+                setHpPercentage(newHp*100 / numberToFixed(stats.get(health.id),1))
             }
         }
     },1000);
@@ -359,8 +362,8 @@ function Fight(props) {
         </div>
         <div>
             <p style={{color: "green", paddingLeft: "10px", fontWeight:"bold", width:"100%"}}>
-                40% {enemy.get(gold.id)} {gold.icon} or 30% {enemy.get(experience.id)} {experience.icon} or 
-                20% {enemy.get("element")} of {fire.icon} {water.icon} {earth.icon} {air.icon}
+                40% {formatNumber(enemy.get(gold.id),1,true)} {gold.icon} or 30% {formatNumber(enemy.get(experience.id),1,true)} {experience.icon} or 
+                20% {formatNumber(enemy.get("element"),1,true)} of {fire.icon} {water.icon} {earth.icon} {air.icon}
                 {boxOdds.map(([box, odd]) =>
                     <span key={box.id}> or {odd}%<span data-tip data-for={box.id} style={{color: colorByRarity(box.rarity)}}> 1 {box.name}</span></span>
                 )}
@@ -378,16 +381,16 @@ function Fight(props) {
                     statsList.map(stat => 
                         stat.id === attack.id ?
                         <p key={stat.id} style={{color: "white", paddingLeft: "10px", fontWeight:"bold", width:"100%"}}>
-                            {stat.icon} {Number(Number(stats.get(stat.id) || 0).toFixed(1))} - {numberToFixed(Number(stats.get(stat.id) || 0).toFixed(1)*1.3, 1)}
+                            {stat.icon} {formatNumber(Number(stats.get(stat.id) || 0),1,true)} - {formatNumber(Number(stats.get(stat.id) || 0).toFixed(1)*1.3, 1,true)}
                         </p>
                         :
                         <p key={stat.id} style={{color: "white", paddingLeft: "10px", fontWeight:"bold", width:"100%"}}>
-                            {stat.icon} {Number(Number(stats.get(stat.id) || 0).toFixed(1))}
+                            {stat.icon} {formatNumber(Number(stats.get(stat.id) || 0),1,true)}
                         </p>    
                     )
                 }
                 <div style={{paddingLeft: "10px", paddingTop: "35px", textAlign:'-webkit-center'}}>
-                    <ProgressBar style={{width:"80%", height:"30px"}} className="health" now={hpPercentage} label={`${hp}/${numberToFixed(stats.get(health.id),1)}`} />
+                    <ProgressBar style={{width:"80%", height:"30px"}} className={alive ? "health" : "healthDead"} now={hpPercentage} label={`${alive?"":"💀 "}${hp}/${numberToFixed(stats.get(health.id),1)}${alive?"":" 💀"}`} />
                 </div>
             </div>
             <div className="column" style={{textAlign:"end", overflow:"hidden"}}>
@@ -398,11 +401,11 @@ function Fight(props) {
                     statsList.map(stat => 
                         stat.id === attack.id ?
                         <p key={stat.id} style={{color: "white", paddingLeft: "10px", fontWeight:"bold", width:"100%"}}>
-                            {Number(Number(enemy.get(stat.id) || 0).toFixed(1))} - {numberToFixed(Number(enemy.get(stat.id) || 0).toFixed(1)*1.3, 1)} {stat.icon} 
+                            {formatNumber(Number(enemy.get(stat.id) || 0),1,true)} - {formatNumber(Number(enemy.get(stat.id) || 0).toFixed(1)*1.3, 1, true)} {stat.icon} 
                         </p>
                         :
                         <p key={stat.id} style={{color: "white", paddingLeft: "10px", fontWeight:"bold", width:"100%"}}>{
-                            Number(Number(enemy.get(stat.id) || 0).toFixed(1))} {stat.icon} 
+                            formatNumber(Number(enemy.get(stat.id) || 0),1,true)} {stat.icon} 
                         </p>  
                     )
                 }

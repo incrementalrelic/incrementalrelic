@@ -113,7 +113,7 @@ export const BoxModal = (props) =>{
                 )}
                 {item.effect().get("artifactBonus") && Object.entries(item.effect().get("artifactBonus")).map(([key, value]) =>
                   currencies.some(e=> e.id== key) ?
-                  <p key={key} style={{color: colorByRarity(4)}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByReward(key)}}>{currencyById(key).icon} artifacts</span></p>
+                  <p key={key} style={{color: colorByRarity(4)}}>{Number(value*100).toFixed(0)}% boost for <span style={{color: colorByReward(key)}}>{currencyById(key).icon} artifacts and relics</span></p>
                   :soul.id == key ?
                   <p key={key} style={{color:colorByRarity(4)}}>{Number(value*100).toFixed(0)}% boost for {soul.icon} on reincarnation</p>
                   :null
@@ -202,7 +202,7 @@ const Item = (props) => {
       <div style={{ width: 100, height:100, position: "relative", height: "100px", backgroundImage: `url(${config.basePath+item.src})`}}>
         <div style={{width: 100, height:100}}>
           <img 
-              src={config.basePath+"/"+item.rarity+".png"}
+              src={config.basePath+"/"+(item.type === RelicType?"r":"")+item.rarity+".png"}
               width={100}
               height={100}
               />
