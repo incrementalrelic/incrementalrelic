@@ -228,6 +228,7 @@ function BasicUpgrade(props) {
 function MergeRelic(props) {
     const [selected, setSelected] = useState({})
     const [result, setResult] = useState({})
+    const [relicSkip, setRelicSkip] = useState(1)
 
     useEffect(()=>{
         if(selected.effect !== undefined){
@@ -294,14 +295,28 @@ function MergeRelic(props) {
         setResult(res)
     },[props.relic.id, props.mergebst])
 
-    const fun = () => splitToChunks(props.items.filter(i => i.type === RelicType && i.rarity >=3 && i.id !== props.relic.id),5).map((row, index) => (
-        <tr key={index}>
-          {row.map((item) => {
-            return <Item key={item.id} item={item} onClick={select} selected={selected}/>
-            }
-          )}
-        </tr>)
-    )
+    const fun = () => splitToChunks(props.items.filter(i => i.type === RelicType && i.rarity >=3 && i.id !== props.relic.id),5)
+        .splice((relicSkip-1)*5 , 5)
+        .map((row, index) => (
+            <tr key={index}>
+            {row.map((item) => {
+                return <Item key={item.id} item={item} onClick={select} selected={selected}/>
+                }
+            )}
+            </tr>)
+        )
+
+    const relicCount = props.items.filter(i => i.type === RelicType && i.rarity >=3 && i.id !== props.relic.id).length
+    const relicPages = relicCount > 0 ? Math.ceil(relicCount / 25) : 1 
+
+    const changeRelicSkip = (i) => {
+        if(i>0 && i<=relicPages)
+            setRelicSkip(i)
+    }
+
+    if(relicPages < relicSkip){
+        setRelicSkip(relicPages)
+    }
 
     return (
         <div>
@@ -342,11 +357,28 @@ function MergeRelic(props) {
                 </div>
             </div>
             <div style={{paddingTop:"15px"}}>
-                <table style={{ width: "100%", height: "220px", overflowY: "auto", display: "block"}}>  
+                <table style={{ width: "100%", height: "190px", overflowY: "auto", display: "block"}}>  
                     <tbody>
                         {fun()}
                     </tbody>
                 </table>
+                <div className="d-flex flex-row">
+                    <div className="p-2">
+                        <Button style={{color: "white", fontWeight:"bold", backgroundColor:"#494949", borderColor:"#494949"}}
+                            onClick={()=>changeRelicSkip(relicSkip-1)}> 
+                            {"<<"} 
+                        </Button>
+                    </div>
+                    <div className="p-2 flex-grow-1 bd-highlight col-example">
+                    <p style={{color: "white", fontWeight:"bold", textAlign:"center"}}>Page {relicSkip} of {relicPages}</p>
+                    </div>
+                    <div className="p-2">
+                        <Button style={{color: "white", fontWeight:"bold", backgroundColor:"#494949", borderColor:"#494949"}}
+                            onClick={()=>changeRelicSkip(relicSkip+1)}> 
+                            {">>"} 
+                        </Button>
+                    </div>
+                </div>
             </div>
             <div style={{paddingTop:"15px", textAlign:"center"}}>
                 <Button style={{backgroundColor:"#6064dc", borderColor:"#6064dc", width:"100%", fontWeight:"bold"}} onClick={addReward}>
